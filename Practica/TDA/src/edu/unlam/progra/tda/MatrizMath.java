@@ -1,4 +1,4 @@
-package ar.com.unlam.tda;
+package edu.unlam.progra.tda;
 
 import java.io.*;
 import java.util.Locale;

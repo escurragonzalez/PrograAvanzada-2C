@@ -1,11 +1,11 @@
-package ar.com.unlam.test;
+package edu.unlam.progra.test;
 
 import java.io.FileNotFoundException;
 
 import org.junit.Ignore;
 import org.junit.Test;
 
-import ar.com.unlam.tda.VectorMath;
+import edu.unlam.progra.tda.VectorMath;
 import junit.framework.Assert;
 
 public class VectorMathTest {

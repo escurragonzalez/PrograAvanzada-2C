@@ -1,4 +1,4 @@
-package ar.com.unlam.tda;
+package edu.unlam.progra.tda;
 
 public class Complejo implements Comparable<Complejo> {
 

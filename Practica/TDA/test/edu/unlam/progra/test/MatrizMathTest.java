@@ -1,10 +1,10 @@
-package ar.com.unlam.test;
+package edu.unlam.progra.test;
 
 import java.io.FileNotFoundException;
 
 import org.junit.Test;
 
-import ar.com.unlam.tda.MatrizMath;
+import edu.unlam.progra.tda.MatrizMath;
 
 public class MatrizMathTest {
 

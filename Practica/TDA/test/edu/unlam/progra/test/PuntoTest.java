@@ -1,9 +1,9 @@
-package ar.com.unlam.test;
+package edu.unlam.progra.test;
 
 import org.junit.Ignore;
 import org.junit.Test;
 
-import ar.com.unlam.tda.Punto;
+import edu.unlam.progra.tda.Punto;
 import junit.framework.Assert;
 
 @SuppressWarnings("deprecation")
