@@ -15,14 +15,6 @@ public class MatrizMath {
 		this.matriz = new double[fila][columna];
 	}
 
-	public void setFila(int fila) {
-		this.fila = fila;
-	}
-
-	public void setColummna(int columna) {
-		this.columna = columna;
-	}
-
 	public MatrizMath(String path) throws FileNotFoundException {
 		Scanner sc = new Scanner(new File(path));
 		sc.useLocale(Locale.ENGLISH);
@@ -35,6 +27,14 @@ public class MatrizMath {
 			this.matriz[sc.nextInt()][sc.nextInt()] = sc.nextInt();
 		}
 		sc.close();
+	}
+
+	public void setFila(int fila) {
+		this.fila = fila;
+	}
+
+	public void setColummna(int columna) {
+		this.columna = columna;
 	}
 
 	public void setMatriz(double[][] componentes) {
@@ -115,33 +115,6 @@ public class MatrizMath {
 		return resultado;
 	}
 
-
-	public MatrizMath suma(MatrizMath m) {
-		if (this.getColumna() != m.getColumna() && this.getFila() != m.getFila())
-			throw new DistDimException(" Distinta Dimension ");
-
-		MatrizMath res = new MatrizMath(this.getFila(), this.getColumna());
-		for (int i = 0; i < this.getFila(); i++) {
-			for (int j = 0; j < this.getColumna(); j++) {
-				res.matriz[i][j] = this.getMatriz()[i][j] + m.getMatriz()[i][j];
-			}
-		}
-		return res;
-	}
-
-	public MatrizMath resta(MatrizMath m) {
-		if (this.columna != m.columna && this.getFila() != m.getFila())
-			throw new DistDimException(" Distinta Dimension ");
-		MatrizMath res = new MatrizMath(this.getFila(), this.columna);
-		for (int i = 0; i < this.getFila(); i++) {
-			for (int j = 0; j < this.columna; j++) {
-				res.matriz[i][j] = this.matriz[i][j] - m.matriz[i][j];
-			}
-		}
-
-		return res;
-	}
-
 	public VectorMath producto(VectorMath vec) {
 		if(this.columna!=vec.getDimension())
 			throw new DistDimException("Dimension Distinta");
@@ -164,42 +137,7 @@ public class MatrizMath {
 		return resultado;
 	}
 
-
-	public double normaUno() {
-		double res = 0;
-		double acum;
-
-		for (int i = 0; i < this.getFila(); i++) {
-			acum = 0;
-			for (int j = 0; j < this.columna; j++) {
-				acum += Math.abs(this.matriz[j][i]);
-			}
-
-			if (acum >= res)
-				res = acum;
-		}
-
-		return res;
-	}
-
-	public double normaInfinito() {
-		double res = 0;
-		double acum;
-
-		for (int i = 0; i < this.getFila(); i++) {
-			acum = 0;
-			for (int j = 0; j < this.columna; j++) {
-				acum += Math.abs(this.matriz[i][j]);
-			}
-
-			if (acum >= res)
-				res = acum;
-		}
-
-		return res;
-	}
-
-	public MatrizMath multiplicarMatriz(MatrizMath m) {
+	public MatrizMath producto(MatrizMath m) {
 		if (this.columna != m.getFila())
 			throw new DistDimException(" Distinta Dimension ");
 
@@ -224,6 +162,50 @@ public class MatrizMath {
 
 	}
 
+	public double normaUno() {
+		double res = 0;
+		double acum;
+
+		for (int i = 0; i < this.getFila(); i++) {
+			acum = 0;
+			for (int j = 0; j < this.columna; j++) {
+				acum += Math.abs(this.matriz[j][i]);
+			}
+
+			if (acum >= res)
+				res = acum;
+		}
+
+		return res;
+	}
+
+	public double normaDos() {
+		double sumaCuadrados = 0;
+		for (int i = 0; i < this.fila; i++) {
+			for (int j = 0; j < this.columna; j++) {
+				sumaCuadrados += Math.pow(this.matriz[i][j], 2);
+			}
+		}
+		return (double) Math.sqrt(sumaCuadrados);
+	}
+
+	public double normaInfinito() {
+		double res = 0;
+		double acum;
+
+		for (int i = 0; i < this.getFila(); i++) {
+			acum = 0;
+			for (int j = 0; j < this.columna; j++) {
+				acum += Math.abs(this.matriz[i][j]);
+			}
+
+			if (acum >= res)
+				res = acum;
+		}
+
+		return res;
+	}
+
 	public MatrizMath transpuesta() {
 
 		MatrizMath res = new MatrizMath(this.columna, this.getFila());
@@ -233,10 +215,6 @@ public class MatrizMath {
 			}
 		}
 		return res;
-	}
-
-	public boolean equals(MatrizMath esperada) { // TODO
-		return true;
 	}
 
 	public VectorMath gaussJordan(VectorMath resultados) {
@@ -262,7 +240,9 @@ public class MatrizMath {
 		double opuesto = 0;
 
 		for (int i = 0; i < ampliada.columna; i++) {
-			ampliada.matriz[f][i] = (ampliada.matriz[f][i] / pivot); // creo el primer 1
+			ampliada.matriz[f][i] = (ampliada.matriz[f][i] / pivot); // creo el
+																		// primer
+																		// 1
 		}
 
 		if (f == 0 && c == 0)
@@ -416,13 +396,4 @@ public class MatrizMath {
 		return res;
 	}
 
-	public double normaDos() {
-		double sumaCuadrados = 0;
-		for (int i = 0; i < this.fila; i++) {
-			for (int j = 0; j < this.columna; j++) {
-				sumaCuadrados += Math.pow(this.matriz[i][j], 2);
-			}
-		}
-		return (double) Math.sqrt(sumaCuadrados);
-	}
 }

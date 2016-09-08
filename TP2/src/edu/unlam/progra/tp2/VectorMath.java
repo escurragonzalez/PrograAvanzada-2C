@@ -18,24 +18,6 @@ public class VectorMath {
 		this.componentes = new double[1];
 	}
 
-	public VectorMath productoVectorial(VectorMath v){
-
-		if(this.dimension!=3 || v.dimension!=3)
-			throw new DistDimException(" Distintas Dimensiones! ");
-
-		VectorMath res = new VectorMath(3);
-		double a=0;
-
-		a=(this.componentes[1]*v.componentes[2])-(this.componentes[2]*v.componentes[1]);
-		res.componentes[0]=a;
-
-		a=(this.componentes[2]*v.componentes[0])-(this.componentes[0]*v.componentes[2]);
-		res.componentes[1]=a;
-		a=(this.componentes[0]*v.componentes[1])-(this.componentes[1]*v.componentes[0]);
-		res.componentes[2]=a;
-		return res;	
-	}
-
 	public VectorMath(String path) throws FileNotFoundException {
 		Scanner sc = new Scanner(new File(path));
 		sc.useLocale(Locale.ENGLISH);
@@ -52,20 +34,20 @@ public class VectorMath {
 		this.dimension = dim;
 	}
 
-	public int getDimension() {
-		return this.dimension;
-	}
-
-	public double[] getComponentes() {
-		return this.componentes;
-	}
-
 	public void setComponentes(double[] componentes) {
 		setDimension(componentes.length);
 		this.componentes = new double[getDimension()];
 		for (int i = 0; i < getDimension(); i++) {
 			this.componentes[i] = componentes[i];
 		}
+	}
+
+	public int getDimension() {
+		return this.dimension;
+	}
+
+	public double[] getComponentes() {
+		return this.componentes;
 	}
 
 	public VectorMath sumar(VectorMath vector) {
@@ -104,6 +86,46 @@ public class VectorMath {
 		vector.setComponentes(componentes);
 		return vector;
 	}
+
+	public VectorMath producto(MatrizMath m) {
+		if (dimension != m.getFila() && dimension != m.getColumna())
+			throw new DistDimException(" Distintas Dimensiones! ");
+		VectorMath res = new VectorMath(this.dimension);
+		double acum;
+		int a;
+		double[][] aux = m.getMatriz();
+		for (int i = 0; i < m.getFila(); i++) {
+			a = 0;
+			acum = 0;
+			for (int j = 0; j < m.getColumna(); j++) {
+				acum += (this.componentes[a] * aux[j][i]);
+				a++;
+			}
+			res.componentes[i] = acum;
+		}
+		return res;
+	}
+
+	// public VectorMath productoVectorial(VectorMath v) {
+	//
+	// if (this.dimension != 3 || v.dimension != 3)
+	// throw new DistDimException(" Distintas Dimensiones! ");
+	//
+	// VectorMath res = new VectorMath(3);
+	// double a = 0;
+	//
+	// a = (this.componentes[1] * v.componentes[2]) - (this.componentes[2] *
+	// v.componentes[1]);
+	// res.componentes[0] = a;
+	//
+	// a = (this.componentes[2] * v.componentes[0]) - (this.componentes[0] *
+	// v.componentes[2]);
+	// res.componentes[1] = a;
+	// a = (this.componentes[0] * v.componentes[1]) - (this.componentes[1] *
+	// v.componentes[0]);
+	// res.componentes[2] = a;
+	// return res;
+	// }
 
 	public String toString() {
 		String resultado = "";
@@ -163,25 +185,6 @@ public class VectorMath {
 				maximo = Math.abs(f);
 		}
 		return maximo;
-	}
-
-	public VectorMath multiplicarPorMatriz(MatrizMath m){
-		if(dimension != m.getFila() && dimension != m.getColumna())
-			throw new DistDimException(" Distintas Dimensiones! ");
-		VectorMath res = new VectorMath(this.dimension);
-		double acum;
-		int a;
-		double[][] aux = m.getMatriz();
-		for(int i=0; i<m.getFila();i++){
-			a=0;
-			acum=0;
-			for(int j=0; j<m.getColumna(); j++){
-				acum+=(this.componentes[a]*aux[j][i]);
-				a++;
-			}
-			res.componentes[i]=acum;
-		}
-		return res;
 	}
 
 }
