@@ -2,11 +2,9 @@ package edu.unlam.progra.test;
 
 import java.io.FileNotFoundException;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.*;
 
 import edu.unlam.progra.tp2.VectorMath;
-import junit.framework.Assert;
 
 public class VectorMathTest {
 
