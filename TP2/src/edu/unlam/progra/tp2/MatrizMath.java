@@ -97,7 +97,7 @@ public class MatrizMath {
 
 	public MatrizMath sumar(MatrizMath matriz) {
 		if (this.getFila() != matriz.getFila() || this.getColumna() != matriz.getColumna())
-			throw new DistDimException(" No se pueden sumar matrices de distinta dimension ");
+			throw new DistDimException(".No se pueden sumar matrices de distinta dimension.");
 		MatrizMath resultado = new MatrizMath(this.getFila(), this.getColumna());
 		for (int i = 0; i < this.getFila(); i++)
 			for (int j = 0; j < this.getColumna(); j++)
@@ -106,18 +106,18 @@ public class MatrizMath {
 	}
 
 	public MatrizMath restar(MatrizMath matriz) {
-			if (this.getFila() != matriz.getFila() || this.getColumna() != matriz.getColumna())
-				throw new DistDimException(" No se pueden restar matrices de distinta dimension ");
+		if (this.getFila() != matriz.getFila() || this.getColumna() != matriz.getColumna())
+			throw new DistDimException("No se pueden restar matrices de distinta dimension.");
 		MatrizMath resultado = new MatrizMath(this.getFila(), this.getColumna());
-			for (int i = 0; i < this.getFila(); i++)
-				for (int j = 0; j < this.getColumna(); j++)
-					resultado.matriz[i][j] = this.matriz[i][j] - matriz.matriz[i][j];
+		for (int i = 0; i < this.getFila(); i++)
+			for (int j = 0; j < this.getColumna(); j++)
+				resultado.matriz[i][j] = this.matriz[i][j] - matriz.matriz[i][j];
 		return resultado;
 	}
 
 	public VectorMath producto(VectorMath vec) {
 		if(this.columna!=vec.getDimension())
-			throw new DistDimException("Dimension Distinta");
+			throw new DistDimException("Dimension Distinta.");
 		VectorMath result = new VectorMath(vec.getDimension());
 		double[] aux = new double[vec.getDimension()];
 		for (int i = 0; i < this.fila; i++) {
@@ -128,7 +128,7 @@ public class MatrizMath {
 		result.setComponentes(aux);
 		return result;
 	}
-	
+
 	public MatrizMath producto(double numero) {
 		MatrizMath resultado = new MatrizMath(this.getFila(), this.getColumna());
 		for (int i = 0; i < this.getFila(); i++)
@@ -139,7 +139,7 @@ public class MatrizMath {
 
 	public MatrizMath producto(MatrizMath m) {
 		if (this.columna != m.getFila())
-			throw new DistDimException(" Distinta Dimension ");
+			throw new DistDimException(".Distinta Dimension.");
 
 		int col_m1 = this.columna;
 		int fil_m1 = this.getFila();
@@ -217,10 +217,13 @@ public class MatrizMath {
 		return res;
 	}
 
-	public VectorMath gaussJordan(VectorMath resultados) {
+	public VectorMath gaussJordan(VectorMath resultados) throws Exception {
 		if (this.columna != this.getFila())
-			throw new DistDimException(" No es una Matriz cuadrada! ");
-		double pivot = 0;
+			throw new DistDimException("LA MATRIZ NO ES CUADRADA.");
+
+		int rangoA, rangoAPrima;	// necesarios para saber el tipo de sistema
+		double pivot = 1;
+		MatrizMath def = new MatrizMath(this.fila,this.columna);	// idem anterior
 
 		VectorMath res = new VectorMath(this.getFila());
 		MatrizMath ampliada = new MatrizMath(this.getFila(), this.columna + 1);
@@ -229,20 +232,20 @@ public class MatrizMath {
 				ampliada.matriz[i][j] = this.matriz[i][j];
 			}
 		}
-		int x = ampliada.columna - 1; // para la ampliada
 
+		int x = ampliada.columna - 1; // para la ampliada
+		//creo la ampliada y la cargo
 		for (int i = 0; i < resultados.getDimension(); i++) {
 			ampliada.matriz[i][x] = resultados.getComponentes()[i];
 		}
 
 		int f = 0, c = 0;
-		pivot = ampliada.matriz[f][c]; // cargo el de la posicion 00
+		if(ampliada.matriz[f][c]!=0)
+			pivot = ampliada.matriz[f][c]; // cargo el de la posicion 00
 		double opuesto = 0;
 
 		for (int i = 0; i < ampliada.columna; i++) {
-			ampliada.matriz[f][i] = (ampliada.matriz[f][i] / pivot); // creo el
-																		// primer
-																		// 1
+			ampliada.matriz[f][i] = (ampliada.matriz[f][i] / pivot); // creo el primer 1
 		}
 
 		if (f == 0 && c == 0)
@@ -257,9 +260,13 @@ public class MatrizMath {
 		while (veces > 0) {
 			f++;
 			c++;
-			pivot = ampliada.matriz[f][c];
+			if(ampliada.matriz[f][c]!=0)
+				pivot = ampliada.matriz[f][c];
+			else
+				pivot=1;
 			for (int i = f; i < ampliada.columna; i++) {
-				ampliada.matriz[f][i] = (ampliada.matriz[f][i] / pivot);
+				if(ampliada.matriz[f][i]!=0)
+					ampliada.matriz[f][i] = (ampliada.matriz[f][i] / pivot);
 			}
 
 			for (int i = 0; i < ampliada.getFila(); i++) {
@@ -272,6 +279,27 @@ public class MatrizMath {
 			}
 			veces--;
 		}
+
+		for (int i = 0; i < def.fila; i++) {
+			for (int j = 0; j < def.columna; j++) {
+				def.matriz[i][j]=ampliada.matriz[i][j];
+			}
+		}
+		
+		//saco los rangos
+		rangoA = def.rango();			
+		rangoAPrima = ampliada.rango();
+		if(rangoA == rangoAPrima && rangoA<this.columna){
+			System.out.println("EL SISTEMA POSEE INFINITAS SOLUCIONES. ");
+			throw new Exception("SISTEMA COMPATIBLE INDETERMINADO");
+		}
+
+		if(rangoA!=rangoAPrima){
+			System.out.println("EL SISTEMA NO POSEE SOLUCIÓN. ");
+			throw new Exception("SISTEMA INCOMPATIBLE");	
+		}
+		
+		System.out.println(ampliada.toString()); 	// final
 
 		double[] aux = new double [this.fila];
 		for (int i = 0; i < res.getDimension(); i++) {
@@ -289,8 +317,7 @@ public class MatrizMath {
 		MatrizMath res = new MatrizMath(this.getFila(), this.columna);
 		MatrizMath ampliada = new MatrizMath(this.getFila(), this.columna * 2);
 
-		// cargo la matriz llamadora más la matriz de resultados
-		// para formar LA AMPLIADA
+		// cargo la matriz llamadora más la matriz de resultados para formar LA AMPLIADA
 		for (int i = 0; i < this.getFila(); i++) {
 			for (int j = 0; j < this.columna; j++) {
 				ampliada.matriz[i][j] = this.matriz[i][j];
@@ -312,9 +339,7 @@ public class MatrizMath {
 		double opuesto = 0;
 
 		for (int i = 0; i < ampliada.columna; i++) {
-			ampliada.matriz[f][i] = (ampliada.matriz[f][i] / pivot); // creo el
-																		// primer
-			// 1
+			ampliada.matriz[f][i] = (ampliada.matriz[f][i] / pivot); // creo el primer 1
 		}
 
 		// creo los ceros en la columna x0
@@ -333,14 +358,7 @@ public class MatrizMath {
 			c++;
 			pivot = ampliada.matriz[f][c];
 			for (int i = f; i < ampliada.columna; i++) {
-				ampliada.matriz[f][i] = (ampliada.matriz[f][i] / pivot); // creo
-																			// el
-																			// 1
-				// en la
-				// fila del
-				// pivot
-				// para ir
-				// escalonando
+				ampliada.matriz[f][i] = (ampliada.matriz[f][i] / pivot);  // creo el 1 en la fila del pivot para ir escalonando
 			}
 
 			for (int i = 0; i < ampliada.fila; i++) {
@@ -369,7 +387,7 @@ public class MatrizMath {
 
 	public double determinante() {
 		if (this.getFila() != this.getColumna())
-			throw new DistDimException("LA MATRIZ NO ES CUADRADA!");
+			throw new DistDimException("LA MATRIZ NO ES CUADRADA.");
 
 		MatrizMath aux = this.clone();
 		int f = 0, c = 0;
@@ -395,5 +413,23 @@ public class MatrizMath {
 		}
 		return res;
 	}
+
+	// Necesario para ver que tipo de sistema es
+	public int rango(){
+		int r =this.fila;
+		int ceros;
+		for (int i = 0; i < this.fila; i++) {
+			ceros=0;
+			for (int j = 0; j < this.columna; j++) {
+				if(this.matriz[i][j]==0)
+					ceros++;
+			}
+
+			if(ceros==this.columna)
+				r--;
+		}
+		return r;
+	}
+
 
 }

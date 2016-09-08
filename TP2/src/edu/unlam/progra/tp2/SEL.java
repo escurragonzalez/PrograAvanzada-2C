@@ -36,7 +36,7 @@ public class SEL {
 		sc.close();
 	}
 
-	public void resolver() throws DistDimException {
+	public void resolver() throws Exception {
 		
 		Calendar tIni = new GregorianCalendar();
 		
@@ -47,7 +47,7 @@ public class SEL {
 		Calendar tFin = new GregorianCalendar();
 		long diff = tFin.getTimeInMillis() - tIni.getTimeInMillis();
 		this.calculoError();
-		System.out.println(diff);
+		System.out.println("TIEMPO DE EJECUCIÓN: "+diff);
 		System.out.println("Error: " + this.getError());
 	}
 	
@@ -101,4 +101,5 @@ public class SEL {
 		
 		error = this.terminoIndependiente.restar(bPrima).normaDos();
 	}
+	
 }

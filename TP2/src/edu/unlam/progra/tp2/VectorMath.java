@@ -106,34 +106,13 @@ public class VectorMath {
 		return res;
 	}
 
-	// public VectorMath productoVectorial(VectorMath v) {
-	//
-	// if (this.dimension != 3 || v.dimension != 3)
-	// throw new DistDimException(" Distintas Dimensiones! ");
-	//
-	// VectorMath res = new VectorMath(3);
-	// double a = 0;
-	//
-	// a = (this.componentes[1] * v.componentes[2]) - (this.componentes[2] *
-	// v.componentes[1]);
-	// res.componentes[0] = a;
-	//
-	// a = (this.componentes[2] * v.componentes[0]) - (this.componentes[0] *
-	// v.componentes[2]);
-	// res.componentes[1] = a;
-	// a = (this.componentes[0] * v.componentes[1]) - (this.componentes[1] *
-	// v.componentes[0]);
-	// res.componentes[2] = a;
-	// return res;
-	// }
-
 	public String toString() {
 		String resultado = "";
 		resultado += "( ";
 		for (int i = 0; i < componentes.length; i++) {
 			resultado += componentes[i] + " ";
 		}
-		resultado += ")";
+		resultado += ")\n";
 		return resultado;
 	}
 
