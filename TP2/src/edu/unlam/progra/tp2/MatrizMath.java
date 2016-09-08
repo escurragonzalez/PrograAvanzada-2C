@@ -1,8 +1,7 @@
 package edu.unlam.progra.tp2;
 
 import java.io.*;
-import java.util.Locale;
-import java.util.Scanner;
+import java.util.*;
 
 public class MatrizMath {
 
@@ -97,9 +96,9 @@ public class MatrizMath {
 	}
 
 	public MatrizMath sumar(MatrizMath matriz) {
-		MatrizMath resultado = new MatrizMath(this.getFila(), this.getColumna());
 		if (this.getFila() != matriz.getFila() || this.getColumna() != matriz.getColumna())
 			throw new DistDimException(" No se pueden sumar matrices de distinta dimension ");
+		MatrizMath resultado = new MatrizMath(this.getFila(), this.getColumna());
 		for (int i = 0; i < this.getFila(); i++)
 			for (int j = 0; j < this.getColumna(); j++)
 				resultado.matriz[i][j] = this.matriz[i][j] + matriz.matriz[i][j];
@@ -107,27 +106,15 @@ public class MatrizMath {
 	}
 
 	public MatrizMath restar(MatrizMath matriz) {
-		MatrizMath resultado = new MatrizMath(this.getFila(), this.getColumna());
-		try {
 			if (this.getFila() != matriz.getFila() || this.getColumna() != matriz.getColumna())
 				throw new DistDimException(" No se pueden restar matrices de distinta dimension ");
+		MatrizMath resultado = new MatrizMath(this.getFila(), this.getColumna());
 			for (int i = 0; i < this.getFila(); i++)
 				for (int j = 0; j < this.getColumna(); j++)
 					resultado.matriz[i][j] = this.matriz[i][j] - matriz.matriz[i][j];
-
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
 		return resultado;
 	}
 
-	public MatrizMath producto(double numero) {
-		MatrizMath resultado = new MatrizMath(this.getFila(), this.getColumna());
-		for (int i = 0; i < this.getFila(); i++)
-			for (int j = 0; j < this.getColumna(); j++)
-				resultado.matriz[i][j] = this.matriz[i][j] * numero;
-		return resultado;
-	}
 
 	public MatrizMath suma(MatrizMath m) {
 		if (this.getColumna() != m.getColumna() && this.getFila() != m.getFila())
@@ -136,27 +123,26 @@ public class MatrizMath {
 		MatrizMath res = new MatrizMath(this.getFila(), this.getColumna());
 		for (int i = 0; i < this.getFila(); i++) {
 			for (int j = 0; j < this.getColumna(); j++) {
-				res.matriz[i][j] = (this.getMatriz()[i][j] + m.getMatriz()[i][j]);
+				res.matriz[i][j] = this.getMatriz()[i][j] + m.getMatriz()[i][j];
 			}
 		}
 		return res;
 	}
 
 	public MatrizMath resta(MatrizMath m) {
-
 		if (this.columna != m.columna && this.getFila() != m.getFila())
 			throw new DistDimException(" Distinta Dimension ");
 		MatrizMath res = new MatrizMath(this.getFila(), this.columna);
 		for (int i = 0; i < this.getFila(); i++) {
 			for (int j = 0; j < this.columna; j++) {
-				res.matriz[i][j] = (this.matriz[i][j] - m.matriz[i][j]);
+				res.matriz[i][j] = this.matriz[i][j] - m.matriz[i][j];
 			}
 		}
 
 		return res;
 	}
 
-	public VectorMath multiplicarPorVector(VectorMath vec){
+	public VectorMath producto(VectorMath vec) {
 		if(this.columna!=vec.getDimension())
 			throw new DistDimException("Dimension Distinta");
 		VectorMath result = new VectorMath(vec.getDimension());
@@ -170,15 +156,14 @@ public class MatrizMath {
 		return result;
 	}
 	
-	public MatrizMath multiplicarReal(double k) {
-		MatrizMath aux = this.clone();
-		for (int i = 0; i < this.getFila(); i++) {
-			for (int j = 0; j < this.columna; j++) {
-				aux.matriz[i][j] *= k;
-			}
-		}
-		return aux;
+	public MatrizMath producto(double numero) {
+		MatrizMath resultado = new MatrizMath(this.getFila(), this.getColumna());
+		for (int i = 0; i < this.getFila(); i++)
+			for (int j = 0; j < this.getColumna(); j++)
+				resultado.matriz[i][j] = this.matriz[i][j] * numero;
+		return resultado;
 	}
+
 
 	public double normaUno() {
 		double res = 0;
@@ -221,7 +206,6 @@ public class MatrizMath {
 		int col_m1 = this.columna;
 		int fil_m1 = this.getFila();
 		int col_m2 = m.columna;
-		int fil_m2 = m.getFila();
 
 		double[][] multiplicacion = new double[fil_m1][col_m2];
 

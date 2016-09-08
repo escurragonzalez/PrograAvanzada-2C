@@ -2,11 +2,9 @@ package edu.unlam.progra.test;
 
 import java.io.FileNotFoundException;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.*;
 
 import edu.unlam.progra.tp2.VectorMath;
-import junit.framework.Assert;
 
 public class VectorMathTest {
 
@@ -40,7 +38,7 @@ public class VectorMathTest {
 	public void productoEscalarDeVectoresTest() throws FileNotFoundException {
 		VectorMath v = new VectorMath("pruebas/pruebaVector.in");
 		VectorMath v2 = new VectorMath("pruebas/pruebaVector.in");
-		Assert.assertEquals(61.0, v.productoEscalar(v2),0.0);
+		Assert.assertEquals(61.0, v.producto(v2),0.0);
 	}
 
 	@Test
@@ -49,6 +47,6 @@ public class VectorMathTest {
 		VectorMath v3 = new VectorMath(5);
 		double comp[] = { 2, 2, 10, 10, 6 };
 		v3.setComponentes(comp);
-		Assert.assertEquals(v3, v.productoPorUnEscalar(2));
+		Assert.assertEquals(v3, v.producto(2));
 	}
 }

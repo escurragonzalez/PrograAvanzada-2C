@@ -1,9 +1,7 @@
 package edu.unlam.progra.tp2;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Locale;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class VectorMath {
 
@@ -71,45 +69,33 @@ public class VectorMath {
 	}
 
 	public VectorMath sumar(VectorMath vector) {
-		VectorMath resultado = new VectorMath(getDimension());
 		if (this.getDimension() != vector.getDimension())
 			throw new DistDimException("Distinta Dimension");
+		VectorMath resultado = new VectorMath(getDimension());
 		for (int i = 0; i < this.getDimension(); i++)
 			resultado.componentes[i] = this.componentes[i] + vector.componentes[i];
 		return resultado;
 	}
 
 	public VectorMath restar(VectorMath vector) {
-		VectorMath resultado = new VectorMath(getDimension());
 		if (this.getDimension() != vector.getDimension())
 			throw new DistDimException("Distinta Dimension");
+		VectorMath resultado = new VectorMath(getDimension());
 		for (int i = 0; i < this.getDimension(); i++)
 			resultado.componentes[i] = this.componentes[i] - vector.componentes[i];
 		return resultado;
 	}
 
-	public double productoEscalar(VectorMath vector) {
-		double resultado = 0;
+	public double producto(VectorMath vector) {
 		if (this.getDimension() != vector.getDimension())
 			throw new DistDimException("Distinta Dimension");
+		double resultado = 0;
 		for (int i = 0; i < this.getDimension(); i++)
 			resultado += this.componentes[i] * vector.componentes[i];
 		return resultado;
 	}
 
-	public VectorMath productoVectorMatriz(MatrizMath matriz) {
-		VectorMath resultado = new VectorMath(this.getDimension());
-		if (this.getDimension() != matriz.getFila())
-			throw new DistDimException("Distinta Dimension");
-		for (int i = 0; i < this.getDimension(); i++)
-			for (int j = 0; j < matriz.getColumna(); j++) {
-				resultado.componentes[i] += this.componentes[j] * matriz.getMatriz()[j][i];
-			}
-
-		return resultado;
-	}
-
-	public VectorMath productoPorUnEscalar(double numero) {
+	public VectorMath producto(double numero) {
 		double[] componentes = new double[this.getDimension()];
 		VectorMath vector = new VectorMath(this.getDimension());
 		for (int i = 0; i < this.getDimension(); i++) {
@@ -167,7 +153,7 @@ public class VectorMath {
 		for (double f : this.getComponentes()) {
 			resultado += Math.pow(f, 2);
 		}
-		return (double) Math.sqrt(resultado);
+		return Math.sqrt(resultado);
 	}
 
 	public double normaInfinito() {
@@ -178,7 +164,6 @@ public class VectorMath {
 		}
 		return maximo;
 	}
-
 
 	public VectorMath multiplicarPorMatriz(MatrizMath m){
 		if(dimension != m.getFila() && dimension != m.getColumna())
@@ -198,4 +183,5 @@ public class VectorMath {
 		}
 		return res;
 	}
+
 }

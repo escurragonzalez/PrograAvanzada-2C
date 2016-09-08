@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class SEL {
@@ -46,10 +45,10 @@ public class SEL {
 		this.vectorIncognita = result;
 		
 		Calendar tFin = new GregorianCalendar();
-
-		long diff = tFin.getTimeInMillis();
-		diff-=tIni.getTimeInMillis();
+		long diff = tFin.getTimeInMillis() - tIni.getTimeInMillis();
+		this.calculoError();
 		System.out.println(diff);
+		System.out.println("Error: " + this.getError());
 	}
 	
 	public MatrizMath getMatrizCoeficiente() {
@@ -96,8 +95,9 @@ public class SEL {
 		//Inversa de la matriz por coeficiente X'
 		MatrizMath matrizInversa = null;
 		matrizInversa =	this.matrizCoeficiente.inversa();
-		VectorMath xPrima = matrizInversa.multiplicarPorVector(terminoIndependiente);// Es X'
-		VectorMath bPrima = matrizCoeficiente.multiplicarPorVector(xPrima);
+		VectorMath xPrima = matrizInversa.producto(terminoIndependiente);// Es
+																			// X'
+		VectorMath bPrima = matrizCoeficiente.producto(xPrima);
 		
 		error = this.terminoIndependiente.restar(bPrima).normaDos();
 	}
