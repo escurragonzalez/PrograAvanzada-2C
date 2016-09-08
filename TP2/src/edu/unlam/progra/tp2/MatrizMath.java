@@ -163,7 +163,7 @@ public class MatrizMath {
 		double[] aux = new double[vec.getDimension()];
 		for (int i = 0; i < this.fila; i++) {
 			for (int j = 0; j < this.columna; j++) {
-				aux[i]=this.matriz[i][j]*vec.getComponentes()[j];
+				aux[i]+=this.matriz[i][j]*vec.getComponentes()[j];
 			}			
 		}
 		result.setComponentes(aux);
