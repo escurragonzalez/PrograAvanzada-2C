@@ -22,7 +22,7 @@ public class MathTest {
 	}
 	
 	@Test
-	public void MatrizPorVerctorTest() throws FileNotFoundException{
+	public void matrizPorVerctorTest() throws FileNotFoundException{
 		MatrizMath m1 = new MatrizMath("test/pruebas/matriz2.in");
 		VectorMath v1 = new VectorMath("test/pruebas/vec1.in");
 		VectorMath res = new VectorMath("test/pruebas/result1.in");
@@ -34,6 +34,6 @@ public class MathTest {
 		MatrizMath m1 = new MatrizMath("test/pruebas/matriz1.in");
 		VectorMath v1 = new VectorMath("test/pruebas/vec2.in");
 		VectorMath res = new VectorMath("test/pruebas/resultGauss1.in");
-		Assert.assertEquals(res,m1.GaussJordan(v1));
+		Assert.assertEquals(res,m1.gaussJordan(v1));
 	}	                       
 }

@@ -239,7 +239,7 @@ public class MatrizMath {
 		return true;
 	}
 
-	public VectorMath GaussJordan(VectorMath resultados) {
+	public VectorMath gaussJordan(VectorMath resultados) {
 		if (this.columna != this.getFila())
 			throw new DistDimException(" No es una Matriz cuadrada! ");
 		double pivot = 0;

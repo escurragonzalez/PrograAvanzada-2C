@@ -41,7 +41,7 @@ public class SEL {
 		Calendar tIni = new GregorianCalendar();
 		
 		VectorMath result = null;
-		result = this.matrizCoeficiente.GaussJordan(this.terminoIndependiente);
+		result = this.matrizCoeficiente.gaussJordan(this.terminoIndependiente);
 		this.vectorIncognita = result;
 		
 		Calendar tFin = new GregorianCalendar();
