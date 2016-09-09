@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class SEL {
@@ -20,6 +21,7 @@ public class SEL {
 	public SEL(String archivo) throws FileNotFoundException {
 
 		Scanner sc = new Scanner(new File(archivo));
+		sc.useLocale(Locale.ENGLISH);
 		this.dim = sc.nextInt();
 		this.matrizCoeficiente = new MatrizMath(dim, dim);
 		this.terminoIndependiente = new VectorMath(dim);
@@ -49,7 +51,7 @@ public class SEL {
 
 		Calendar tFin = new GregorianCalendar();
 		long diff = tFin.getTimeInMillis() - tIni.getTimeInMillis();
-		this.calculoError();
+		//this.calculoError();
 		System.out.println("TIEMPO DE EJECUCIÓN: " + diff);
 		System.out.println("Error: " + this.getError());
 	}

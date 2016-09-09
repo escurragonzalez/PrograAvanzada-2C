@@ -22,7 +22,7 @@ public class GeneradorMatriz {
 	private double generarNumeroRandom() {
 		double numeroRandom;
 		Random randomGenerator = new Random();
-		int randomInt = randomGenerator.nextInt(100000);
+		int randomInt = randomGenerator.nextInt(1000);
 		double randomDouble = randomGenerator.nextDouble();
 		numeroRandom = ((double) randomInt) + randomDouble;
 		return numeroRandom;
