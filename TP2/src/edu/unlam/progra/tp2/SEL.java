@@ -99,7 +99,7 @@ public class SEL {
 		MatrizMath matrizInversa = null;
 		matrizInversa = this.matrizCoeficiente.inversa();
 		VectorMath xPrima = matrizInversa.producto(terminoIndependiente);// Es
-																			// X'
+		// X'
 		VectorMath bPrima = matrizCoeficiente.producto(xPrima);
 
 		error = this.terminoIndependiente.restar(bPrima).normaDos();
@@ -109,12 +109,21 @@ public class SEL {
 
 		PrintWriter salida = new PrintWriter(new FileWriter(nombreArchivo));
 
-		salida.println(this.getVectorIncognita().getDimension());
-		for (int i = 0; i < this.getVectorIncognita().getDimension(); i++) {
-			salida.println(this.getVectorIncognita().getComponentes()[i]);
+		if(this.getVectorIncognita().getDimension()==1 && this.getVectorIncognita().getComponentes(0)==1){
+			salida.println("EL SISTEMA POSEE INFINITAS SOLUCIONES.");
 		}
-		salida.println(this.getError());
-
+		else
+			if(this.getVectorIncognita().getDimension()==1 && this.getVectorIncognita().getComponentes(0)==-1){
+				salida.println("EL SISTEMA NO POSEE SOLUCIÓN");
+			}
+			else{
+				salida.println(this.getVectorIncognita().getDimension());
+				for (int i = 0; i < this.getVectorIncognita().getDimension(); i++) {
+					salida.println(this.getVectorIncognita().getComponentes()[i]);
+				}
+				salida.println();salida.println();
+				salida.println(this.getError());
+			}
 		salida.close();
 	}
 

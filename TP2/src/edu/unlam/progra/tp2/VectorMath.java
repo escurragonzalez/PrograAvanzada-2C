@@ -41,6 +41,10 @@ public class VectorMath {
 			this.componentes[i] = componentes[i];
 		}
 	}
+	
+	public void setComponentes(int valor){
+		this.componentes[0]=valor;
+	}
 
 	public int getDimension() {
 		return this.dimension;
@@ -48,6 +52,10 @@ public class VectorMath {
 
 	public double[] getComponentes() {
 		return this.componentes;
+	}
+	
+	public double getComponentes(int pos){
+		return this.componentes[pos];
 	}
 
 	public VectorMath sumar(VectorMath vector) {

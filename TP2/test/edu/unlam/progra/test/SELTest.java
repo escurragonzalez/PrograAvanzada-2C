@@ -13,6 +13,7 @@ public class SELTest {
 		System.out.println(s.getTerminoIndependiente().toString());
 		s.resolver();
 		System.out.println("\n" + s.getVectorIncognita());
-		// System.out.println(s.getError());
+		
+		s.grabarSolucion("A VER SI ANDA.out");
 	}
 }

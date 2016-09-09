@@ -289,14 +289,20 @@ public class MatrizMath {
 		//saco los rangos
 		rangoA = def.rango();			
 		rangoAPrima = ampliada.rango();
-		if(rangoA == rangoAPrima && rangoA<this.columna){
-			System.out.println("EL SISTEMA POSEE INFINITAS SOLUCIONES. ");
-			throw new Exception("SISTEMA COMPATIBLE INDETERMINADO");
+		if(rangoA == rangoAPrima && rangoA<this.columna){	// seteo 1 si es indeterminado
+			VectorMath aux = new VectorMath(1);
+			aux.setComponentes(1);
+			return aux;
+//			System.out.println("EL SISTEMA POSEE INFINITAS SOLUCIONES. ");
+//			throw new Exception("SISTEMA COMPATIBLE INDETERMINADO");
 		}
 
 		if(rangoA!=rangoAPrima){
-			System.out.println("EL SISTEMA NO POSEE SOLUCIÓN. ");
-			throw new Exception("SISTEMA INCOMPATIBLE");	
+			VectorMath aux = new VectorMath(1);		// seteo 2 si es incompatible
+			aux.setComponentes(-1);
+			return aux;
+//			System.out.println("EL SISTEMA NO POSEE SOLUCIÓN. ");
+//			throw new Exception("SISTEMA INCOMPATIBLE");	
 		}
 		
 		System.out.println(ampliada.toString()); 	// final
