@@ -1,4 +1,4 @@
-package sel;
+package edu.unlam.progra.tp2;
 
 import java.io.File;
 import java.io.FileNotFoundException;
