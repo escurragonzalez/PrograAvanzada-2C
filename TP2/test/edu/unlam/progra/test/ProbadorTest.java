@@ -2,18 +2,15 @@ package edu.unlam.progra.test;
 
 import java.io.FileNotFoundException;
 
-import org.junit.Test;
+import org.junit.*;
 
 import edu.unlam.progra.tp2.Probador;
-import junit.framework.Assert;
 
 public class ProbadorTest {
 
-
-	@SuppressWarnings("deprecation")
 	@Test
 	public void Probadortest() throws FileNotFoundException {
-		Probador p = new Probador("pruebaDeterminado.in","test/pruebas/resultGauss1.in");
+		Probador p = new Probador("Matriz1000.in", "Matriz00.out");
 		Assert.assertTrue(p.probarResultado());
 	}
 }

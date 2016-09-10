@@ -1,5 +1,8 @@
 package edu.unlam.progra.test;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -16,10 +19,29 @@ public class SELTest {
 		System.out.println("\n" + s.getVectorIncognita());
 		s.grabarSolucion("A VER SI ANDA.out");
 	}
-	
-	@Test
-	public void pruebasTomarTiempoTest() throws Exception{
+
+	@Ignore
+	public void pruebasTomarTiempoTest() throws Exception {
 		SEL s = new SEL("test/pruebas/in/matriz1000.in");
 		s.resolver();
+	}
+
+	@Test
+	public void resolverSel() throws Exception {
+
+		SEL s = new SEL("pruebaIndeterminado.in");
+		Calendar tIni = new GregorianCalendar();
+
+		s.resolver();
+
+		Calendar tFin = new GregorianCalendar();
+		long diff = tFin.getTimeInMillis() - tIni.getTimeInMillis();
+
+		s.calculoError();
+		System.out.println(diff);
+
+		System.out.println("Error: " + s.getError());
+
+		s.grabarSolucion("pruebaIndeterminado.out");
 	}
 }

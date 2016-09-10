@@ -5,8 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -43,17 +42,15 @@ public class SEL {
 
 	public void resolver() throws Exception {
 
-		Calendar tIni = new GregorianCalendar();
+		if (this.tieneSolucion()) {
 
-		VectorMath result = null;
-		result = this.matrizCoeficiente.gaussJordan(this.terminoIndependiente);
-		this.vectorIncognita = result;
+			// result =
+			// this.matrizCoeficiente.gaussJordan(this.terminoIndependiente);
+			this.setVectorIncognita(this.getMatrizCoeficiente().inversa().producto(this.getTerminoIndependiente()));
+		}
 
-		Calendar tFin = new GregorianCalendar();
-		long diff = tFin.getTimeInMillis() - tIni.getTimeInMillis();
-		//this.calculoError();
-		System.out.println("TIEMPO DE EJECUCIÓN: " + diff);
-		System.out.println("Error: " + this.getError());
+		// this.calculoError();
+
 	}
 
 	public MatrizMath getMatrizCoeficiente() {
@@ -96,7 +93,7 @@ public class SEL {
 		this.dim = dim;
 	}
 
-	private void calculoError() {
+	public void calculoError() {
 		// Inversa de la matriz por coeficiente X'
 		MatrizMath matrizInversa = null;
 		matrizInversa = this.matrizCoeficiente.inversa();
@@ -107,25 +104,27 @@ public class SEL {
 		error = this.terminoIndependiente.restar(bPrima).normaDos();
 	}
 
+	public boolean tieneSolucion() {
+		if (this.getVectorIncognita().getDimension() == 1 && this.getVectorIncognita().getComponentes(0) == 1) {
+			return false;
+		} else if (this.getVectorIncognita().getDimension() == 1 && this.getVectorIncognita().getComponentes(0) == -1) {
+			return false;
+		}
+		return true;
+	}
+
 	public void grabarSolucion(String nombreArchivo) throws IOException {
 
 		PrintWriter salida = new PrintWriter(new FileWriter(nombreArchivo));
 
-		if(this.getVectorIncognita().getDimension()==1 && this.getVectorIncognita().getComponentes(0)==1){
-			salida.println("EL SISTEMA POSEE INFINITAS SOLUCIONES.");
+		salida.println(this.getVectorIncognita().getDimension());
+		for (int i = 0; i < this.getVectorIncognita().getDimension(); i++) {
+			salida.println(this.getVectorIncognita().getComponentes()[i]);
 		}
-		else
-			if(this.getVectorIncognita().getDimension()==1 && this.getVectorIncognita().getComponentes(0)==-1){
-				salida.println("EL SISTEMA NO POSEE SOLUCIÓN");
-			}
-			else{
-				salida.println(this.getVectorIncognita().getDimension());
-				for (int i = 0; i < this.getVectorIncognita().getDimension(); i++) {
-					salida.println(this.getVectorIncognita().getComponentes()[i]);
-				}
-				salida.println();salida.println();
-				salida.println(this.getError());
-			}
+		salida.println();
+		salida.println();
+		salida.println(this.getError());
+
 		salida.close();
 	}
 

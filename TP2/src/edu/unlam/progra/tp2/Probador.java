@@ -2,6 +2,7 @@ package edu.unlam.progra.tp2;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Probador {
@@ -12,6 +13,7 @@ public class Probador {
 	public Probador(String pathIn, String pathOut) throws FileNotFoundException {
 		// Archivo In
 		Scanner scIn = new Scanner(new File(pathIn));
+		scIn.useLocale(Locale.ENGLISH);
 		int dim = scIn.nextInt();
 		this.matrizCoeficiente = new MatrizMath(dim, dim);
 		this.vectorTerminoIndependiente = new VectorMath(dim);
@@ -32,6 +34,7 @@ public class Probador {
 
 		// Archivo Out
 		Scanner scOut = new Scanner(new File(pathOut));
+		scOut.useLocale(Locale.ENGLISH);
 		int cant = scOut.nextInt();
 		double[] vecSalida = new double[cant];
 		for (int i = 0; i < cant; i++) {
@@ -52,7 +55,8 @@ public class Probador {
 		// Norma 2 de B - B'
 		aux = this.vectorTerminoIndependiente.restar(bPrima);
 		double error = aux.normaDos();
-		if (error<10E-6){
+		System.out.println(error);
+		if (error<10E-2){
 			return true;
 		}
 		return false;
