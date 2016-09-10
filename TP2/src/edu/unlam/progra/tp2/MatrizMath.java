@@ -8,6 +8,7 @@ public class MatrizMath {
 	private int fila;
 	private int columna;
 	private double[][] matriz;
+	private String tipoSistema;
 
 	public MatrizMath(int fila, int columna) {
 		this.setFila(fila);
@@ -123,7 +124,7 @@ public class MatrizMath {
 		for (int i = 0; i < this.fila; i++) {
 			for (int j = 0; j < this.columna; j++) {
 				aux[i]+=this.matriz[i][j]*vec.getComponentes()[j];
-			}			
+			}
 		}
 		result.setComponentes(aux);
 		return result;
@@ -285,27 +286,20 @@ public class MatrizMath {
 				def.matriz[i][j]=ampliada.matriz[i][j];
 			}
 		}
-		
+
 		//saco los rangos
-		rangoA = def.rango();			
+		rangoA = def.rango();
 		rangoAPrima = ampliada.rango();
-		if(rangoA == rangoAPrima && rangoA<this.columna){	// seteo 1 si es indeterminado
-			VectorMath aux = new VectorMath(1);
-			aux.setComponentes(1);
-			return aux;
-//			System.out.println("EL SISTEMA POSEE INFINITAS SOLUCIONES. ");
-//			throw new Exception("SISTEMA COMPATIBLE INDETERMINADO");
+		setTipoSistema("DETERMINADO");
+		if(rangoA == rangoAPrima && rangoA<this.columna){
+//			"EL SISTEMA POSEE INFINITAS SOLUCIONES."
+			setTipoSistema("INDETERMINADO");
 		}
 
 		if(rangoA!=rangoAPrima){
-			VectorMath aux = new VectorMath(1);		// seteo 2 si es incompatible
-			aux.setComponentes(-1);
-			return aux;
-//			System.out.println("EL SISTEMA NO POSEE SOLUCIÓN. ");
-//			throw new Exception("SISTEMA INCOMPATIBLE");	
+//			"EL SISTEMA NO POSEE SOLUCIÓN."
+			setTipoSistema("IMCOMPATIBLE");
 		}
-		
-		System.out.println(ampliada.toString()); 	// final
 
 		double[] aux = new double [this.fila];
 		for (int i = 0; i < res.getDimension(); i++) {
@@ -435,6 +429,14 @@ public class MatrizMath {
 				r--;
 		}
 		return r;
+	}
+
+	public String getTipoSistema() {
+		return tipoSistema;
+	}
+
+	public void setTipoSistema(String tipoSistema) {
+		this.tipoSistema = tipoSistema;
 	}
 
 

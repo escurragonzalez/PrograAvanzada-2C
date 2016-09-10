@@ -42,15 +42,12 @@ public class SEL {
 
 	public void resolver() throws Exception {
 
-		if (this.tieneSolucion()) {
-
-			// result =
-			// this.matrizCoeficiente.gaussJordan(this.terminoIndependiente);
-			this.setVectorIncognita(this.getMatrizCoeficiente().inversa().producto(this.getTerminoIndependiente()));
+		if (this.matrizCoeficiente.getTipoSistema() != "IMCOMPATIBLE") {
+			//this.setVectorIncognita(this.matrizCoeficiente.gaussJordan(this.terminoIndependiente));
 		}
+		this.setVectorIncognita(this.getMatrizCoeficiente().inversa().producto(this.getTerminoIndependiente()));
 
 		// this.calculoError();
-
 	}
 
 	public MatrizMath getMatrizCoeficiente() {
@@ -104,28 +101,25 @@ public class SEL {
 		error = this.terminoIndependiente.restar(bPrima).normaDos();
 	}
 
-	public boolean tieneSolucion() {
-		if (this.getVectorIncognita().getDimension() == 1 && this.getVectorIncognita().getComponentes(0) == 1) {
-			return false;
-		} else if (this.getVectorIncognita().getDimension() == 1 && this.getVectorIncognita().getComponentes(0) == -1) {
-			return false;
-		}
-		return true;
-	}
-
 	public void grabarSolucion(String nombreArchivo) throws IOException {
 
 		PrintWriter salida = new PrintWriter(new FileWriter(nombreArchivo));
-
-		salida.println(this.getVectorIncognita().getDimension());
-		for (int i = 0; i < this.getVectorIncognita().getDimension(); i++) {
-			salida.println(this.getVectorIncognita().getComponentes()[i]);
-		}
-		salida.println();
-		salida.println();
-		salida.println(this.getError());
-
+		String tipo = this.matrizCoeficiente.getTipoSistema();
+		if(tipo=="IMCOMPATIBLE"){
+			salida.println("EL SISTEMA NO POSEE SOLUCIÓN.");
+			}else{
+				if(tipo=="INDETERMINADO"){
+					salida.println("EL SISTEMA POSEE INFINITAS SOLUCIONES.");
+					}else{
+					salida.println(this.getVectorIncognita().getDimension());
+					for (int i = 0; i < this.getVectorIncognita().getDimension(); i++) {
+						salida.println(this.getVectorIncognita().getComponentes()[i]);
+					}
+					salida.println();
+					salida.println();
+					salida.println(this.getError());
+					}
+			}
 		salida.close();
 	}
-
 }
