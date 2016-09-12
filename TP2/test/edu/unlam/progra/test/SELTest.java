@@ -1,10 +1,8 @@
 package edu.unlam.progra.test;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.util.*;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.*;
 
 import edu.unlam.progra.tp2.SEL;
 

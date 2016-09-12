@@ -1,13 +1,7 @@
 package edu.unlam.progra.tp2;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-
-import java.util.Locale;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class SEL {
 
@@ -43,9 +37,9 @@ public class SEL {
 	public void resolver() throws Exception {
 
 		if (this.matrizCoeficiente.getTipoSistema() != "IMCOMPATIBLE") {
-			//this.setVectorIncognita(this.matrizCoeficiente.gaussJordan(this.terminoIndependiente));
+			// this.setVectorIncognita(this.matrizCoeficiente.gaussJordan(this.terminoIndependiente));
+			this.setVectorIncognita(this.getMatrizCoeficiente().inversa().producto(this.getTerminoIndependiente()));
 		}
-		this.setVectorIncognita(this.getMatrizCoeficiente().inversa().producto(this.getTerminoIndependiente()));
 
 		// this.calculoError();
 	}
@@ -105,21 +99,21 @@ public class SEL {
 
 		PrintWriter salida = new PrintWriter(new FileWriter(nombreArchivo));
 		String tipo = this.matrizCoeficiente.getTipoSistema();
-		if(tipo=="IMCOMPATIBLE"){
+		if (tipo == "IMCOMPATIBLE") {
 			salida.println("EL SISTEMA NO POSEE SOLUCIÓN.");
-			}else{
-				if(tipo=="INDETERMINADO"){
-					salida.println("EL SISTEMA POSEE INFINITAS SOLUCIONES.");
-					}else{
-					salida.println(this.getVectorIncognita().getDimension());
-					for (int i = 0; i < this.getVectorIncognita().getDimension(); i++) {
-						salida.println(this.getVectorIncognita().getComponentes()[i]);
-					}
-					salida.println();
-					salida.println();
-					salida.println(this.getError());
-					}
+		} else {
+			if (tipo == "INDETERMINADO") {
+				salida.println("EL SISTEMA POSEE INFINITAS SOLUCIONES.");
+			} else {
+				salida.println(this.getVectorIncognita().getDimension());
+				for (int i = 0; i < this.getVectorIncognita().getDimension(); i++) {
+					salida.println(this.getVectorIncognita().getComponentes()[i]);
+				}
+				salida.println();
+				salida.println();
+				salida.println(this.getError());
 			}
+		}
 		salida.close();
 	}
 }
