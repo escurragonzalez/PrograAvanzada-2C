@@ -27,7 +27,7 @@ public class SELTest {
 	@Test
 	public void resolverSel() throws Exception {
 
-		SEL s = new SEL("pruebaIndeterminado.in");
+		SEL s = new SEL("Matriz2500.in");
 		Calendar tIni = new GregorianCalendar();
 
 		s.resolver();
@@ -39,7 +39,7 @@ public class SELTest {
 		System.out.println(diff);
 
 		System.out.println("Error: " + s.getError());
-
-		s.grabarSolucion("pruebaIndeterminado.out");
+//-Xmx512M
+		s.grabarSolucion("Matriz2500.out");
 	}
 }

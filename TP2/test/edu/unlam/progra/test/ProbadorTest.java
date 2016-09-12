@@ -10,7 +10,7 @@ public class ProbadorTest {
 
 	@Test
 	public void Probadortest() throws FileNotFoundException {
-		Probador p = new Probador("Matriz1000.in", "Matriz00.out");
+		Probador p = new Probador("Matriz50.in", "Matriz50.out");
 		Assert.assertTrue(p.probarResultado());
 	}
 }

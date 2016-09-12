@@ -27,8 +27,8 @@ public class GeneradorMatrizTest {
 	
 	@Test
 	public void generarMatrizOrden1000Test() {
-		GeneradorMatriz m1 = new GeneradorMatriz(500);
-		m1.escribirArchivoSalida("Matriz1000.in");
+		GeneradorMatriz m1 = new GeneradorMatriz(3000);
+		m1.escribirArchivoSalida("Matriz3000.in");
 	}
 	
 	@Ignore
