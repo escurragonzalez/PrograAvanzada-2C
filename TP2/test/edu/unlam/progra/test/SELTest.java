@@ -10,12 +10,12 @@ public class SELTest {
 
 	@Ignore
 	public void constructorSELtest() throws Exception {
-		SEL s = new SEL("pruebaIncompatible.in");
+		SEL s = new SEL("Matriz1000.in");
 		System.out.println(s.getMatrizCoeficiente().toString());
 		System.out.println(s.getTerminoIndependiente().toString());
 		s.resolver();
 		System.out.println("\n" + s.getVectorIncognita());
-		s.grabarSolucion("A VER SI ANDA.out");
+		s.grabarSolucion("Matriz1000.out");
 	}
 
 	@Ignore
@@ -27,7 +27,7 @@ public class SELTest {
 	@Test
 	public void resolverSel() throws Exception {
 
-		SEL s = new SEL("Matriz2500.in");
+		SEL s = new SEL("pruebaIncompatible.in");
 		Calendar tIni = new GregorianCalendar();
 
 		s.resolver();
@@ -40,6 +40,6 @@ public class SELTest {
 
 		System.out.println("Error: " + s.getError());
 //-Xmx512M
-		s.grabarSolucion("Matriz2500.out");
+		s.grabarSolucion("pruebaIncompatible.out");
 	}
 }

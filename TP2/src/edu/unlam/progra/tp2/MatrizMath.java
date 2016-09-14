@@ -222,7 +222,7 @@ public class MatrizMath {
 		if (this.columna != this.getFila())
 			throw new DistDimException("LA MATRIZ NO ES CUADRADA.");
 
-		int rangoA, rangoAPrima; // necesarios para saber el tipo de sistema
+		// int rangoA, rangoAPrima; // necesarios para saber el tipo de sistema
 		double pivot = 1;
 		MatrizMath def = new MatrizMath(this.fila, this.columna); // idem
 																	// anterior
@@ -291,18 +291,20 @@ public class MatrizMath {
 		}
 
 		// saco los rangos
-		rangoA = def.rango();
-		rangoAPrima = ampliada.rango();
-		setTipoSistema("DETERMINADO");
-		if (rangoA == rangoAPrima && rangoA < this.columna) {
-			// "EL SISTEMA POSEE INFINITAS SOLUCIONES."
-			setTipoSistema("INDETERMINADO");
-		}
+		// rangoA = def.rango();
+		// rangoAPrima = ampliada.rango();
+		// setTipoSistema("DETERMINADO");
+		// if (rangoA == rangoAPrima && rangoA < this.columna) {
+		// // "EL SISTEMA POSEE INFINITAS SOLUCIONES."
+		// setTipoSistema("INDETERMINADO");
+		// }
+		//
+		// if (rangoA != rangoAPrima) {
+		// // "EL SISTEMA NO POSEE SOLUCIÓN."
+		// setTipoSistema("IMCOMPATIBLE");
+		// }
 
-		if (rangoA != rangoAPrima) {
-			// "EL SISTEMA NO POSEE SOLUCIÓN."
-			setTipoSistema("IMCOMPATIBLE");
-		}
+		determinarTipoDeSistema(def, ampliada);
 
 		double[] aux = new double[this.fila];
 		for (int i = 0; i < res.getDimension(); i++) {
@@ -398,6 +400,7 @@ public class MatrizMath {
 				b++;
 			}
 		}
+		determinarTipoDeSistema(res, ampliada);
 		return res;
 	}
 
@@ -430,6 +433,22 @@ public class MatrizMath {
 		return res;
 	}
 
+	public void determinarTipoDeSistema(MatrizMath resultado, MatrizMath ampliada) {
+		double rangoA = resultado.rango();
+		double rangoAPrima = ampliada.rango();
+		setTipoSistema("Determinado");
+		if (rangoA == rangoAPrima && rangoA < this.columna) {
+			// "EL SISTEMA POSEE INFINITAS SOLUCIONES."
+			setTipoSistema("Indeterminado");
+		} else {
+
+			if (rangoA != rangoAPrima) {
+				// "EL SISTEMA NO POSEE SOLUCIÓN."
+				setTipoSistema("Incompatible");
+			}
+		}
+	}
+
 	// Necesario para ver que tipo de sistema es
 	public int rango() {
 		int r = this.fila;
@@ -437,7 +456,8 @@ public class MatrizMath {
 		for (int i = 0; i < this.fila; i++) {
 			ceros = 0;
 			for (int j = 0; j < this.columna; j++) {
-				if (this.matriz[i][j] == 0)
+				// if (this.matriz[i][j] == 0 || this.matriz[i][j])
+				if (this.matriz[i][j] == 0 || !Double.isFinite(this.matriz[i][j]))
 					ceros++;
 			}
 
