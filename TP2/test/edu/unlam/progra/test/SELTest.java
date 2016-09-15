@@ -26,8 +26,7 @@ public class SELTest {
 
 	@Test
 	public void resolverSel() throws Exception {
-
-		SEL s = new SEL("pruebaIncompatible.in");
+		SEL s = new SEL("11.sistemaIncompatible.in");
 		Calendar tIni = new GregorianCalendar();
 
 		s.resolver();
@@ -36,10 +35,9 @@ public class SELTest {
 		long diff = tFin.getTimeInMillis() - tIni.getTimeInMillis();
 
 		s.calculoError();
-		System.out.println(diff);
+		System.out.println("Tiempo: " + diff);
 
-		System.out.println("Error: " + s.getError());
-//-Xmx512M
-		s.grabarSolucion("pruebaIncompatible.out");
+		// -Xmx512M
+		s.grabarSolucion("11.sistemaIncompatible.out");
 	}
 }

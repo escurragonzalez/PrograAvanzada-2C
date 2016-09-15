@@ -98,7 +98,7 @@ public class MatrizMath {
 
 	public MatrizMath sumar(MatrizMath matriz) {
 		if (this.getFila() != matriz.getFila() || this.getColumna() != matriz.getColumna())
-			throw new DistDimException(".No se pueden sumar matrices de distinta dimension.");
+			throw new DistDimException("No se pueden sumar matrices de distinta dimension.");
 		MatrizMath resultado = new MatrizMath(this.getFila(), this.getColumna());
 		for (int i = 0; i < this.getFila(); i++)
 			for (int j = 0; j < this.getColumna(); j++)
@@ -222,7 +222,6 @@ public class MatrizMath {
 		if (this.columna != this.getFila())
 			throw new DistDimException("LA MATRIZ NO ES CUADRADA.");
 
-		// int rangoA, rangoAPrima; // necesarios para saber el tipo de sistema
 		double pivot = 1;
 		MatrizMath def = new MatrizMath(this.fila, this.columna); // idem
 																	// anterior
@@ -290,20 +289,6 @@ public class MatrizMath {
 			}
 		}
 
-		// saco los rangos
-		// rangoA = def.rango();
-		// rangoAPrima = ampliada.rango();
-		// setTipoSistema("DETERMINADO");
-		// if (rangoA == rangoAPrima && rangoA < this.columna) {
-		// // "EL SISTEMA POSEE INFINITAS SOLUCIONES."
-		// setTipoSistema("INDETERMINADO");
-		// }
-		//
-		// if (rangoA != rangoAPrima) {
-		// // "EL SISTEMA NO POSEE SOLUCIÓN."
-		// setTipoSistema("IMCOMPATIBLE");
-		// }
-
 		determinarTipoDeSistema(def, ampliada);
 
 		double[] aux = new double[this.fila];
@@ -317,7 +302,7 @@ public class MatrizMath {
 	public MatrizMath inversa() {
 
 		if (this.getFila() != this.columna)
-			throw new DistDimException("LA MATRIZ NO ES CUADRADA!");
+			throw new DistDimException("No se puede calcular la inversa porque la matriz no es cuadrada.");
 
 		MatrizMath res = new MatrizMath(this.getFila(), this.columna);
 		MatrizMath ampliada = new MatrizMath(this.getFila(), this.columna * 2);
@@ -406,7 +391,7 @@ public class MatrizMath {
 
 	public double determinante() {
 		if (this.getFila() != this.getColumna())
-			throw new DistDimException("LA MATRIZ NO ES CUADRADA.");
+			throw new DistDimException("No se puede calcular el determinante porque la matriz no es cuadrada.");
 
 		MatrizMath aux = this.clone();
 		int f = 0, c = 0;
@@ -441,7 +426,6 @@ public class MatrizMath {
 			// "EL SISTEMA POSEE INFINITAS SOLUCIONES."
 			setTipoSistema("Indeterminado");
 		} else {
-
 			if (rangoA != rangoAPrima) {
 				// "EL SISTEMA NO POSEE SOLUCIÓN."
 				setTipoSistema("Incompatible");

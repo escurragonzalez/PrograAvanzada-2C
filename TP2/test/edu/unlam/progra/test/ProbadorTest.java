@@ -1,6 +1,6 @@
 package edu.unlam.progra.test;
 
-import java.io.FileNotFoundException;
+import java.io.*;
 
 import org.junit.*;
 

@@ -9,20 +9,19 @@ import edu.unlam.progra.tp2.VectorMath;
 public class MathTest {
 
 	@Test
-	public void constrictorTest() throws FileNotFoundException{
+	public void constrictorTest() throws FileNotFoundException {
 		MatrizMath m1 = new MatrizMath("test/pruebas/matriz1.in");
 		Assert.assertNotNull(m1);
 	}
 
 	@Test
-	public void toStringTest() throws FileNotFoundException{
+	public void toStringTest() throws FileNotFoundException {
 		MatrizMath m1 = new MatrizMath("test/pruebas/matriz1.in");
-		//System.out.println(m1);
 		Assert.assertNotNull(m1);
 	}
 
 	@Test
-	public void matrizPorVerctorTest() throws FileNotFoundException{
+	public void matrizPorVerctorTest() throws FileNotFoundException {
 		MatrizMath m1 = new MatrizMath("test/pruebas/matriz2.in");
 		VectorMath v1 = new VectorMath("test/pruebas/vec1.in");
 		VectorMath res = new VectorMath("test/pruebas/result1.in");
@@ -30,10 +29,10 @@ public class MathTest {
 	}
 
 	@Test
-	public void pruebaGaussJordan() throws Exception{
+	public void pruebaGaussJordan() throws Exception {
 		MatrizMath m1 = new MatrizMath("test/pruebas/matriz1.in");
 		VectorMath v1 = new VectorMath("test/pruebas/vec2.in");
 		VectorMath res = new VectorMath("test/pruebas/resultGauss1.in");
-		Assert.assertEquals(res,m1.gaussJordan(v1));
+		Assert.assertEquals(res, m1.gaussJordan(v1));
 	}
 }

@@ -36,10 +36,7 @@ public class SEL {
 
 	public void resolver() throws Exception {
 
-		if (this.matrizCoeficiente.getTipoSistema() != "IMCOMPATIBLE") {
-			// this.setVectorIncognita(this.matrizCoeficiente.gaussJordan(this.terminoIndependiente));
-			this.setVectorIncognita(this.getMatrizCoeficiente().inversa().producto(this.getTerminoIndependiente()));
-		}
+		this.setVectorIncognita(this.getMatrizCoeficiente().inversa().producto(this.getTerminoIndependiente()));
 	}
 
 	public MatrizMath getMatrizCoeficiente() {
@@ -99,13 +96,11 @@ public class SEL {
 		String tipo = this.matrizCoeficiente.getTipoSistema();
 
 		switch (tipo) {
-		// case "Incompatible":
 		case "Indeterminado":
-			salida.println("EL SISTEMA NO POSEE SOLUCIÓN.");
+			salida.println("El sistema posee infinitas soluciones.");
 			break;
-		// case "Indeterminado":
 		case "Incompatible":
-			salida.println("EL SISTEMA POSEE INFINITAS SOLUCIONES.");
+			salida.println("El sistema no posee solución.");
 			break;
 		default:
 			salida.println(this.getVectorIncognita().getDimension());
@@ -117,21 +112,6 @@ public class SEL {
 			salida.println(this.getError());
 
 		}
-		// if (tipo == "Incompatible") {
-		// salida.println("EL SISTEMA NO POSEE SOLUCIÓN.");
-		// } else {
-		// if (tipo == "Indeterminado") {
-		// salida.println("EL SISTEMA POSEE INFINITAS SOLUCIONES.");
-		// } else {
-		// salida.println(this.getVectorIncognita().getDimension());
-		// for (int i = 0; i < this.getVectorIncognita().getDimension(); i++) {
-		// salida.println(this.getVectorIncognita().getComponentes()[i]);
-		// }
-		// salida.println();
-		// salida.println();
-		// salida.println(this.getError());
-		// }
-		// }
 		salida.close();
 	}
 }

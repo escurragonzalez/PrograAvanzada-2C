@@ -1,7 +1,6 @@
 package edu.unlam.progra.test;
 
-import java.io.FileNotFoundException;
-
+import java.io.*;
 import org.junit.*;
 
 import edu.unlam.progra.tp2.VectorMath;
@@ -38,7 +37,7 @@ public class VectorMathTest {
 	public void productoEscalarDeVectoresTest() throws FileNotFoundException {
 		VectorMath v = new VectorMath("pruebas/pruebaVector.in");
 		VectorMath v2 = new VectorMath("pruebas/pruebaVector.in");
-		Assert.assertEquals(61.0, v.producto(v2),0.0);
+		Assert.assertEquals(61.0, v.producto(v2), 0.0);
 	}
 
 	@Test
