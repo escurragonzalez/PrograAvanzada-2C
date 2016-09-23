@@ -10,7 +10,7 @@ public class PolinomioTest {
 	public void MSucesivasTest() {
 		double[] d = { 5, 4, 3, 2, 1 };
 		Polinomio p = new Polinomio(4, d);
-		Assert.assertEquals(3.5625, p.evualarMSucesivas(0.5), 0.0005);
+		Assert.assertEquals(3.5625, p.evaluarMSucesivas(0.5), 0.0005);
 	}
 
 	@Test
@@ -27,11 +27,11 @@ public class PolinomioTest {
 		Assert.assertEquals(Math.pow(25, 3), p.potencia(25, 3), 0);
 	}
 
-	@Test
-	public void recursivaATest() {
-		double[] d = { 5, 4, 3, 2, 1 };
-		Polinomio p = new Polinomio(4, d);
-		Assert.assertEquals(3.5625, p.evualarRecursivaConsiderando(0.5), 0.0005);
-	}
+	// @Test
+	// public void recursivaATest() {
+	// double[] d = { 5, 4, 3, 2, 1 };
+	// Polinomio p = new Polinomio(4, d);
+	// Assert.assertEquals(3.5625, p.evualarRecursivaConsiderando(0.5), 0.0005);
+	// }
 
 }
