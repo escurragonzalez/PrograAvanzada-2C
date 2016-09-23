@@ -10,24 +10,25 @@ public class Polinomio {
 	private double[] coeficientes;
 
 	public Polinomio(int grado, double[] coeficientes) {
-		this.grado = grado;
+		this.setGrado(grado);
 		this.coeficientes = new double[grado + 1];
 		for (int i = 0; i < this.grado + 1; i++) {
-			this.coeficientes[i] = coeficientes[i];
+			this.setValorCoeficientes(coeficientes[i], i);
 		}
 	}
 
 	public Polinomio(String archivo) throws FileNotFoundException {
-		Scanner sc = new Scanner(new File(archivo));
+		Scanner scanner = new Scanner(new File(archivo));
 
-		this.setGrado(sc.nextInt());
-		double[] Coeficientes = new double[this.grado + 1];
+		this.setGrado(scanner.nextInt());
+		// double[] Coeficientes = new double[this.grado + 1];
 
-		for (int i = 0; i < this.grado + 1; i++)
-			Coeficientes[i] = sc.nextDouble();
+		for (int indiceCoeficiente = 0; indiceCoeficiente < this.getGrado() + 1; indiceCoeficiente++)
 
-		this.setCoeficientes(Coeficientes);
-		sc.close();
+			this.setValorCoeficientes(scanner.nextDouble(), indiceCoeficiente);
+
+		// this.setCoeficientes(Coeficientes);
+		scanner.close();
 	}
 
 	public int getGrado() {
@@ -46,6 +47,10 @@ public class Polinomio {
 		this.coeficientes = coeficientes;
 	}
 
+	public void setValorCoeficientes(double valor, int posicion) {
+		this.coeficientes[posicion] = valor;
+	}
+
 	public String toString() {
 		String resultado = "";
 		resultado += this.grado + "\n";
@@ -57,13 +62,13 @@ public class Polinomio {
 
 	public double evaluarMSucesivas(double x) {
 		double resultado = this.coeficientes[this.grado];
-		double aux;
+		double valorAuxiliar;
 		for (int i = 0; i < this.grado; i++) {
-			aux = 1;
+			valorAuxiliar = 1;
 			for (int j = 0; j < this.grado - i; j++)
-				aux *= x;
+				valorAuxiliar *= x;
 
-			resultado += this.coeficientes[i] * aux;
+			resultado += this.coeficientes[i] * valorAuxiliar;
 		}
 		return resultado;
 	}
@@ -86,6 +91,8 @@ public class Polinomio {
 		return x * this.potencia(x * x, grado / 2);
 	}
 
+	// Tratar de usar el grado auxiliar. Al método solo tiene que llegarle el
+	// valor a evaluar.
 	public double evaluarRecursivaSinConsiderar(double x, int grado) {
 		double resultado;
 
@@ -97,6 +104,8 @@ public class Polinomio {
 		return resultado;
 	}
 
+	// Tratar de usar el grado auxiliar. Al método solo tiene que llegarle el
+	// valor a evaluar.
 	public double evaluarRecursivaPar(double x, int grado) {
 		double resultado;
 
@@ -182,25 +191,32 @@ public class Polinomio {
 		return resultado;
 	}
 
-	public static void main(String[] args) throws FileNotFoundException {
-		Locale.setDefault(new Locale("en", "us"));
-		double valorEvaluador = 8;
-
-		Polinomio p = new Polinomio("Polinomio_in.txt");
-		System.out.println(p.toString());
-		System.out.println("evaluado en 5: " + p.evaluarMSucesivas(valorEvaluador));
-		// System.out.println(p.potencia(4, 4));
-		System.out.println("evaluado en " + valorEvaluador + " recursiva: "
-				+ p.evaluarRecursivaSinConsiderar(valorEvaluador, p.getGrado()));
-		System.out.println(
-				"evaluado en " + valorEvaluador + " par: " + p.evaluarRecursivaPar(valorEvaluador, p.getGrado()));
-		System.out.println("evaluado en " + valorEvaluador + " dinamica: " + p.evaluarProgDinamica(valorEvaluador));
-		System.out.println("evaluado en " + valorEvaluador + " pow : " + p.evaluarPow(valorEvaluador));
-		System.out
-				.println("evaluado en " + valorEvaluador + " Horner: " + p.evaluarHorner(valorEvaluador, p.getGrado()));
-		System.out.println("evaluado en " + valorEvaluador + " dinamica 1: " + p.evaluarProgDinamica1(valorEvaluador));
-		System.out.println(
-				"evaluado en " + valorEvaluador + " dinamica 2: " + p.evaluarProgDinamicaMejorada(valorEvaluador));
-
-	}
+	// public static void main(String[] args) throws FileNotFoundException {
+	// Locale.setDefault(new Locale("en", "us"));
+	// double valorEvaluador = 8;
+	//
+	// Polinomio p = new Polinomio("Polinomio_in.txt");
+	// System.out.println(p.toString());
+	// System.out.println("evaluado en 5: " +
+	// p.evaluarMSucesivas(valorEvaluador));
+	// // System.out.println(p.potencia(4, 4));
+	// System.out.println("evaluado en " + valorEvaluador + " recursiva: "
+	// + p.evaluarRecursivaSinConsiderar(valorEvaluador, p.getGrado()));
+	// System.out.println(
+	// "evaluado en " + valorEvaluador + " par: " +
+	// p.evaluarRecursivaPar(valorEvaluador, p.getGrado()));
+	// System.out.println("evaluado en " + valorEvaluador + " dinamica: " +
+	// p.evaluarProgDinamica(valorEvaluador));
+	// System.out.println("evaluado en " + valorEvaluador + " pow : " +
+	// p.evaluarPow(valorEvaluador));
+	// System.out
+	// .println("evaluado en " + valorEvaluador + " Horner: " +
+	// p.evaluarHorner(valorEvaluador, p.getGrado()));
+	// System.out.println("evaluado en " + valorEvaluador + " dinamica 1: " +
+	// p.evaluarProgDinamica1(valorEvaluador));
+	// System.out.println(
+	// "evaluado en " + valorEvaluador + " dinamica 2: " +
+	// p.evaluarProgDinamicaMejorada(valorEvaluador));
+	//
+	// }
 }

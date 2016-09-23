@@ -1,10 +1,13 @@
 package polinomio;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Random;
-import java.io.*;
 
 public class GeneradorPolinomio {
 	private int grado;
+	private double valorAEvaluar;
 	private double[] coeficientes;
 
 	public GeneradorPolinomio(int grado) {
@@ -12,10 +15,11 @@ public class GeneradorPolinomio {
 		Random random = new Random();
 		double[] Coeficientes = new double[grado + 1];
 
-		for (int i = 0; i < grado+1; i++) {
+		for (int i = 0; i < grado + 1; i++) {
 			double numeroRandom = random.nextInt() + random.nextDouble();
 			Coeficientes[i] = numeroRandom;
 		}
+		this.valorAEvaluar = random.nextDouble();
 		this.setCoeficientes(Coeficientes);
 	}
 
@@ -23,32 +27,20 @@ public class GeneradorPolinomio {
 		this.coeficientes = coeficientes;
 	}
 
-	public void escribirArchivoSalida(String archivo) {
-		FileWriter fichero = null;
-		PrintWriter pw = null;
+	public void escribirArchivoSalida(String nombreArchivo) throws IOException {
 
-		try {
-			fichero = new FileWriter(archivo);
-			pw = new PrintWriter(fichero);
+		PrintWriter salida = new PrintWriter(new FileWriter(nombreArchivo));
 
-			pw.println(this.grado);
-			for (int i = 0; i <= this.grado; i++)
-				pw.println(this.coeficientes[i]);
+		salida.println(this.grado);
+		for (int i = 0; i <= this.grado; i++)
+			salida.println(this.coeficientes[i]);
+		salida.println(this.valorAEvaluar);
+		salida.close();
 
-		} catch (Exception e) {
-			System.out.println("Error de Escritura de Archivo " + e.getMessage());
-		} finally {
-			try {
-				if (null != fichero)
-					fichero.close();
-			} catch (Exception e2) {
-				System.out.println("Error de Escritura de Archivo " + e2.getMessage());
-			}
-		}
 	}
 
-	public static void main(String[] args) {
-		GeneradorPolinomio p = new GeneradorPolinomio(5);
-		p.escribirArchivoSalida("Polinomio_in.txt");
-	}
+	// public static void main(String[] args) {
+	// GeneradorPolinomio p = new GeneradorPolinomio(5);
+	// p.escribirArchivoSalida("Polinomio_in.txt");
+	// }
 }
