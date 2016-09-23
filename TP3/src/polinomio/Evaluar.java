@@ -10,16 +10,16 @@ public class Evaluar {
 
 	public void leerPolinomio(String archivo) throws FileNotFoundException {
 
-		Scanner sc = new Scanner(new File(archivo));
-		int grado = sc.nextInt();
+		Scanner scanner = new Scanner(new File(archivo));
+		int grado = scanner.nextInt();
 		double[] coeficientes = new double[grado++];
 		for (int idx = 0; idx < grado++; idx++) {
-			coeficientes[idx] = sc.nextDouble();
+			coeficientes[idx] = scanner.nextDouble();
 
 		}
 
 		this.polinomio = new Polinomio(grado, coeficientes);
-		this.valor = sc.nextDouble();
+		this.valor = scanner.nextDouble();
 
 	}
 
