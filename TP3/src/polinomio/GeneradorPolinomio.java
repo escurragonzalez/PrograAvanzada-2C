@@ -7,6 +7,7 @@ import java.util.Random;
 
 public class GeneradorPolinomio {
 
+
 	public GeneradorPolinomio(int grado, double numeroAEvaluar, String nombreArchivo) throws IOException {
 
 		Random random = new Random();
@@ -16,21 +17,17 @@ public class GeneradorPolinomio {
 			double numeroRandom = random.nextInt() + random.nextDouble();
 			coeficientes[i] = numeroRandom;
 		}
-		// this.valorAEvaluar = random.nextDouble();
-
 		escribirArchivoSalida(nombreArchivo, grado, numeroAEvaluar, coeficientes);
 	}
 
-	public void escribirArchivoSalida(String nombreArchivo, int grado, double valorAEvaluar, double[] coeficientes)
+	private void escribirArchivoSalida(String nombreArchivo, int grado, double valorAEvaluar, double[] coeficientes)
 			throws IOException {
 
 		PrintWriter salida = new PrintWriter(new FileWriter(nombreArchivo));
-
 		salida.println(grado);
 		for (int i = 0; i <= grado; i++)
 			salida.println(coeficientes[i]);
 		salida.println(valorAEvaluar);
 		salida.close();
-
 	}
 }

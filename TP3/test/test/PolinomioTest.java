@@ -1,28 +1,28 @@
 package test;
 
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
+
 import polinomio.Polinomio;
 
 public class PolinomioTest {
 
 	// USAR TIMEOUT PARA QUE CORTE SI TARDA MUCHO TIEMPO
-	@Ignore
+	@Test
 	public void multiplicacionesSucesivasTest() {
 		double[] d = { 5, 4, 3, 2, 1 };
 		Polinomio p = new Polinomio(4, d);
 		Assert.assertEquals(3.5625, p.evaluarMSucesivas(0.5), 0.0005);
 	}
 
-	@Ignore
+	@Test
 	public void algoritmoDeHornerTest() {
 		double[] d = { 5, 4, 3, 2, 1 };
 		Polinomio p = new Polinomio(4, d);
 		Assert.assertEquals(3.5625, p.evaluarHorner(0.5), 0.0005);
 	}
 
-	@Ignore
+	@Test
 	public void evaluarPowTest() {
 		double[] d = { 5, 4, 3, 2, 1 };
 		Polinomio p = new Polinomio(4, d);
@@ -78,14 +78,14 @@ public class PolinomioTest {
 		Assert.assertEquals(3.5625, p.evaluarRecursivaPar(0.5, 4), 0.0005);
 	}
 
-	@Ignore
+	@Test
 	public void potenciaTest() {
 		double[] d = { 5, 4, 3, 2, 1 };
 		Polinomio p = new Polinomio(4, d);
 		Assert.assertEquals(Math.pow(25, 3), p.potencia(25, 3), 0);
 	}
 
-	@Ignore
+	@Test
 	public void potenciaParTest() {
 		double[] d = { 5, 4, 3, 2, 1 };
 		Polinomio p = new Polinomio(4, d);

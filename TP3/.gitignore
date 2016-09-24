@@ -1,1 +1,6 @@
-/bin/
+.metadata
+**/.settings
+**/.gradle
+**/bin
+**/build
+

@@ -1,8 +1,5 @@
 package polinomio;
 
-import java.io.*;
-import java.util.Scanner;
-
 public class Polinomio {
 
 	private int grado;
@@ -14,19 +11,6 @@ public class Polinomio {
 		for (int i = 0; i < this.grado + 1; i++) {
 			this.setValorCoeficientes(coeficientes[i], i);
 		}
-	}
-
-	public Polinomio(String archivo) throws FileNotFoundException {
-		Scanner scanner = new Scanner(new File(archivo));
-		this.setGrado(scanner.nextInt());
-
-		this.coeficientes = new double[this.getGrado() + 1];
-
-		for (int indiceCoeficiente = 0; indiceCoeficiente < this.getGrado() + 1; indiceCoeficiente++)
-
-			this.setValorCoeficientes(scanner.nextDouble(), indiceCoeficiente);
-
-		scanner.close();
 	}
 
 	public int getGrado() {
@@ -172,7 +156,7 @@ public class Polinomio {
 	/*
 	 * public double evaluarProgDinamica1(double x) { double xm = 1; double
 	 * result = this.coeficientes[0];
-	 * 
+	 *
 	 * for (int i = 1; i < this.coeficientes.length; i++) { xm *= x; result +=
 	 * this.coeficientes[i] * xm; } return result; }
 	 */ // el de la profe
@@ -190,7 +174,7 @@ public class Polinomio {
 
 	/*
 	 * public double evaluarProgDinamica2(double x) { double result = 0;
-	 * 
+	 *
 	 * for (int i = this.coeficientes.length - 1; i >= 0; i--) { result = result
 	 * * x + this.coeficientes[i]; } return result; }
 	 */ // el de la profe
