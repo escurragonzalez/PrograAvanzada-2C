@@ -2,13 +2,15 @@ package test;
 
 import java.io.File;
 import java.io.IOException;
+
+import org.junit.Ignore;
 import org.junit.Test;
 
 import polinomio.Evaluar;
 
 public class EvaluarTest {
 
-	@Test
+	@Ignore
 	public void test() throws IOException {
 		File folder = new File("test/Entrada");
 		File[] listOfFiles = folder.listFiles();
@@ -21,5 +23,11 @@ public class EvaluarTest {
 				e.leerPolinomio("test/Entrada/"+fileName+".in","test/Salida/"+fileName+".out");
 			}
 		}
+	}
+
+	@Test
+	public void EvluarTiempoTest() throws IOException{
+		Evaluar e = new Evaluar();
+		e.leerPolinomio("30000", "1000.out");
 	}
 }
