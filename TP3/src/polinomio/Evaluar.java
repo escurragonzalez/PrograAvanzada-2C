@@ -12,8 +12,8 @@ public class Evaluar {
 
 		Scanner scanner = new Scanner(new File(archivo));
 		int grado = scanner.nextInt();
-		double[] coeficientes = new double[grado++];
-		for (int idx = 0; idx < grado++; idx++) {
+		double[] coeficientes = new double[grado+1];
+		for (int idx = 0; idx < coeficientes.length; idx++) {
 			coeficientes[idx] = scanner.nextDouble();
 		}
 		this.polinomio = new Polinomio(grado, coeficientes);
