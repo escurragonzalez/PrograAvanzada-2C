@@ -51,6 +51,7 @@ public class Polinomio {
 		return x * this.potencia(x, grado - 1);
 	}
 
+	//Complejidad computacional n*n
 	public double evaluarMSucesivas(double x) {
 		double resultado = this.coeficientes[this.grado];
 		double valorAuxiliar;
@@ -90,6 +91,7 @@ public class Polinomio {
 		return result;
 	}
 
+	//Complejidad computacional n
 	public double evaluarProgDinamica1(double x) {
 
 		double resultado = this.coeficientes[this.grado];
@@ -104,6 +106,7 @@ public class Polinomio {
 		return resultado;
 	}
 
+	//Complejidad computacional n
 	public double evaluarProgDinamica(double x) {
 		double xm = 1;
 		double result = this.coeficientes[this.grado];
@@ -115,6 +118,7 @@ public class Polinomio {
 		return result;
 	}
 
+	//Complejidad computacional n
 	public double evaluarProgDinamicaMejorada(double x) {
 		double result = 0;
 
@@ -124,6 +128,7 @@ public class Polinomio {
 		return result;
 	}
 
+	//Complejidad computacional n
 	public double evaluarPow(double x) {
 		double resultado = this.coeficientes[this.grado];
 
@@ -133,6 +138,7 @@ public class Polinomio {
 		return resultado;
 	}
 
+	//Complejidad computacional n
 	public double evaluarHorner(double x) {
 		double resultado = this.coeficientes[0];
 

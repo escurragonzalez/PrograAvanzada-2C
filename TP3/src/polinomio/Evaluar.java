@@ -1,9 +1,9 @@
 package polinomio;
-import java.util.GregorianCalendar;
-import java.util.Calendar;
-
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
 
 public class Evaluar {
 
@@ -21,17 +21,9 @@ public class Evaluar {
 		this.polinomio = new Polinomio(grado, coeficientes);
 		this.valor = scanner.nextDouble();
 		scanner.close();
+		double r = polinomio.evaluarHorner(valor);
 
-		Calendar tIni = new GregorianCalendar();
-		double r = polinomio.evaluarRecursivaSinConsiderar(valor);
-		Calendar tFin = new GregorianCalendar();
-
-		long diff = tFin.getTimeInMillis();
-		diff= diff-tIni.getTimeInMillis();
-
-		System.out.println(diff);
-
-//		escribirResultado(r,archSalida);
+		escribirResultado(r,archSalida);
 	}
 
 	private void escribirResultado(double r,String archSalida) throws IOException {
