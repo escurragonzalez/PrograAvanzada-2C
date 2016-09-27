@@ -37,24 +37,17 @@ public class PolinomioTest {
 	}
 
 	@Test
-	public void evaluarRecursivaSinConsiderarEliasTest() {
+	public void evaluarRecursivaConsiderarTest() {
 		double[] d = { 5, 4, 3, 2, 1 };
 		Polinomio p = new Polinomio(4, d);
-		Assert.assertEquals(3.5625, p.evaluarRecursivaSinConsiderar(0.5, 4), 0.0005);
-	}
-
-	@Test
-	public void evaluarRecursivaConsiderandoTest() {
-		double[] d = { 5, 4, 3, 2, 1 };
-		Polinomio p = new Polinomio(4, d);
-		Assert.assertEquals(3.5625, p.evaluarRecursivaConsiderando(0.5), 0.0005);
+		Assert.assertEquals(7465.0, p.evaluarRecursivaConsiderar(6), 0.0005);
 	}
 
 	@Test
 	public void evaluarProgDinamica1Test() {
 		double[] d = { 5, 4, 3, 2, 1 };
 		Polinomio p = new Polinomio(4, d);
-		Assert.assertEquals(3.5625, p.evaluarProgDinamica1(0.5), 0.0005);
+		Assert.assertEquals(7465, p.evaluarProgDinamica1(6), 0.0005);
 	}
 
 	@Test
@@ -72,13 +65,6 @@ public class PolinomioTest {
 	}
 
 	@Test
-	public void evaluarRecursivaParTest() {
-		double[] d = { 5, 4, 3, 2, 1 };
-		Polinomio p = new Polinomio(4, d);
-		Assert.assertEquals(3.5625, p.evaluarRecursivaPar(0.5, 4), 0.0005);
-	}
-
-	@Test
 	public void potenciaTest() {
 		double[] d = { 5, 4, 3, 2, 1 };
 		Polinomio p = new Polinomio(4, d);
@@ -91,12 +77,4 @@ public class PolinomioTest {
 		Polinomio p = new Polinomio(4, d);
 		Assert.assertEquals(Math.pow(25, 3), p.potencia(25, 3), 0);
 	}
-
-	// @Test
-	// public void recursivaATest() {
-	// double[] d = { 5, 4, 3, 2, 1 };
-	// Polinomio p = new Polinomio(4, d);
-	// Assert.assertEquals(3.5625, p.evualarRecursivaConsiderando(0.5), 0.0005);
-	// }
-
 }
