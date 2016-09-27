@@ -15,18 +15,18 @@ public class EvaluarTest {
 		File folder = new File("test/Entrada");
 		File[] listOfFiles = folder.listFiles();
 		Evaluar e = new Evaluar();
-		String fileName= "";
+		String fileName = "";
 		for (int i = 0; i < listOfFiles.length; i++) {
 			if (listOfFiles[i].isFile()) {
-				fileName=listOfFiles[i].getName();
-				fileName=fileName.substring(0, fileName.lastIndexOf("."));
-				e.leerPolinomio("test/Entrada/"+fileName+".in","test/Salida/"+fileName+".out");
+				fileName = listOfFiles[i].getName();
+				fileName = fileName.substring(0, fileName.lastIndexOf("."));
+				e.leerPolinomio("test/Entrada/" + fileName + ".in", "test/Salida/" + fileName + ".out");
 			}
 		}
 	}
 
 	@Test
-	public void evaluarTiempoTest() throws IOException{
+	public void evaluarTiempoTest() throws IOException {
 		Evaluar e = new Evaluar();
 		e.leerPolinomio("tiempo/1000", "1000.out");
 	}

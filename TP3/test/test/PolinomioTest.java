@@ -44,13 +44,6 @@ public class PolinomioTest {
 	}
 
 	@Test
-	public void evaluarProgDinamica1Test() {
-		double[] d = { 5, 4, 3, 2, 1 };
-		Polinomio p = new Polinomio(4, d);
-		Assert.assertEquals(7465, p.evaluarProgDinamica1(6), 0.0005);
-	}
-
-	@Test
 	public void evaluarProgDinamicaTest() {
 		double[] d = { 5, 4, 3, 2, 1 };
 		Polinomio p = new Polinomio(4, d);
