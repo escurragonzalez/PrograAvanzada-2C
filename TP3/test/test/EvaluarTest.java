@@ -26,8 +26,8 @@ public class EvaluarTest {
 	}
 
 	@Test
-	public void EvluarTiempoTest() throws IOException{
+	public void evaluarTiempoTest() throws IOException{
 		Evaluar e = new Evaluar();
-		e.leerPolinomio("30000", "1000.out");
+		e.leerPolinomio("tiempo/1000", "1000.out");
 	}
 }
