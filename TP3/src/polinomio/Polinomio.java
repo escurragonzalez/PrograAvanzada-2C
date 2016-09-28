@@ -44,14 +44,14 @@ public class Polinomio {
 
 	public double potencia(double x, int grado) {
 		if (grado == 0)
-			return 1;
-		if (grado == 1)
-			return x;
+			return this.coeficientes[grado];
 
-		return x * this.potencia(x, grado - 1);
+		return this.coeficientes[grado] + (x * this.potencia(x, grado - 1));
 	}
 
-	//Complejidad computacional n*n
+	/**
+	 * Complejidad computacional: O(n*m)
+	 */
 	public double evaluarMSucesivas(double x) {
 		double resultado = this.coeficientes[this.grado];
 		double valorAuxiliar;
@@ -65,48 +65,32 @@ public class Polinomio {
 		return resultado;
 	}
 
+	/**
+	 * Complejidad Computacional: O(log(n))
+	 */
 	public double evaluarRecursivaSinConsiderar(double x) {
-
-		int gradoAuxiliar = this.getGrado();
-		double result = this.coeficientes[this.coeficientes.length - 1];
-		for (int idx = 0; idx < this.getGrado(); idx++) {
-			result += this.coeficientes[idx] * this.potencia(x, gradoAuxiliar);
-			gradoAuxiliar--;
-		}
-		return result;
+		return potencia(x, this.grado);
 	}
 
+	/**
+	 * Complejidad Computacional: O(log(n))
+	 */
 	public double evaluarRecursivaConsiderar(double x) {
-
-		int gradoAuxiliar = this.getGrado();
-		double result = this.coeficientes[this.coeficientes.length - 1];
-		for (int idx = 0; idx < this.getGrado(); idx++) {
-			if(gradoAuxiliar %2==0){
-				result += this.coeficientes[idx] * this.potencia(x*x,gradoAuxiliar/2);
-			}else{
-				result += this.coeficientes[idx] * x*this.potencia(x, gradoAuxiliar-1);
-			}
-			gradoAuxiliar--;
-		}
-		return result;
+		return potenciaPar(x, this.grado);
 	}
 
-	//Complejidad computacional n
-	public double evaluarProgDinamica1(double x) {
-
-		double resultado = this.coeficientes[this.grado];
-		double[] vec = new double[this.grado];
-
-		for (int i = 0; i < this.grado; i++)
-			vec[i] = Math.pow(x, this.grado - i);
-
-		for (int i = 0; i < this.grado; i++)
-			resultado += this.coeficientes[i] * vec[i];
-
-		return resultado;
+	public double potenciaPar(double x, int grado) {
+		if (grado == 0)
+			return this.coeficientes[grado];
+		if (grado % 2 == 0)
+			return this.coeficientes[grado] + (this.potenciaPar(x * x, grado / 2));
+		return this.coeficientes[grado] + (x * this.potenciaPar(x, grado - 1));
 	}
 
-	//Complejidad computacional n
+	/**
+	 *
+	 * Complejidad Computacional: O(n)
+	 */
 	public double evaluarProgDinamica(double x) {
 		double xm = 1;
 		double result = this.coeficientes[this.grado];
@@ -118,7 +102,9 @@ public class Polinomio {
 		return result;
 	}
 
-	//Complejidad computacional n
+	/**
+	 * Complejidad Computacional: O(n)
+	 */
 	public double evaluarProgDinamicaMejorada(double x) {
 		double result = 0;
 
@@ -128,7 +114,9 @@ public class Polinomio {
 		return result;
 	}
 
-	//Complejidad computacional n
+	/**
+	 * Complejidad Computacional: O(n)
+	 */
 	public double evaluarPow(double x) {
 		double resultado = this.coeficientes[this.grado];
 
@@ -138,7 +126,9 @@ public class Polinomio {
 		return resultado;
 	}
 
-	//Complejidad computacional n
+	/**
+	 * Complejidad Computacional: O(n)
+	 */
 	public double evaluarHorner(double x) {
 		double resultado = this.coeficientes[0];
 
