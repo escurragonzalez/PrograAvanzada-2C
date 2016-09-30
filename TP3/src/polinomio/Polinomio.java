@@ -44,9 +44,9 @@ public class Polinomio {
 
 	public double potencia(double x, int grado) {
 		if (grado == 0)
-			return this.coeficientes[grado];
+			return 1;
 
-		return this.coeficientes[grado] + (x * this.potencia(x, grado - 1));
+		return x * this.potencia(x, grado - 1);
 	}
 
 	/**
@@ -69,22 +69,34 @@ public class Polinomio {
 	 * Complejidad Computacional: O(log(n))
 	 */
 	public double evaluarRecursivaSinConsiderar(double x) {
-		return potencia(x, this.grado);
+		double resultado = this.coeficientes[grado];
+
+		for (int i = 0; i < grado; i++)
+			resultado += this.potencia(x, grado - i) * this.coeficientes[i];
+
+		return resultado;
 	}
 
 	/**
 	 * Complejidad Computacional: O(log(n))
 	 */
 	public double evaluarRecursivaConsiderar(double x) {
-		return potenciaPar(x, this.grado);
+		double resultado = this.coeficientes[grado];
+
+		for (int i = 0; i < grado; i++)
+			resultado += this.potenciaPar(x, grado - i) * this.coeficientes[i];
+
+		return resultado;
 	}
 
 	public double potenciaPar(double x, int grado) {
 		if (grado == 0)
-			return this.coeficientes[grado];
+			return 1;
+
 		if (grado % 2 == 0)
-			return this.coeficientes[grado] + (this.potenciaPar(x * x, grado / 2));
-		return this.coeficientes[grado] + (x * this.potenciaPar(x, grado - 1));
+			return this.potenciaPar(x * x, grado / 2);
+
+		return x * this.potenciaPar(x, grado - 1);
 	}
 
 	/**
