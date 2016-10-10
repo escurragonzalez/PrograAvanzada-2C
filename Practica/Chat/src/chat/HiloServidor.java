@@ -14,13 +14,17 @@ public class HiloServidor extends Thread {
 	private ArrayList<Socket> users;
 	private SendThread sender;
 	private ReceiveThread receiver;
+	private Socket sk;
+	private int id;
 	private LinkedBlockingQueue<String> outgoingMessages;
 
-	public HiloServidor(Socket cliente, ArrayList<Socket> usuarios) {
+	public HiloServidor(Socket cliente, ArrayList<Socket> usuarios, int id) {
 		setUser(usuarios);
+		this.sk = cliente;
+		this.id = id;
 		try {
-			in = new DataInputStream(cliente.getInputStream());
-			out = new DataOutputStream(cliente.getOutputStream());
+			in = new DataInputStream(sk.getInputStream());
+			out = new DataOutputStream(sk.getOutputStream());
 			outgoingMessages = new LinkedBlockingQueue<String>();
 			sender = new SendThread();
 			receiver = new ReceiveThread();
@@ -54,7 +58,6 @@ public class HiloServidor extends Thread {
 		private String msj;
 
 		public void run() {
-
 			try {
 				while (true) {
 					this.msj = leerRespuesta();
@@ -63,7 +66,6 @@ public class HiloServidor extends Thread {
 					}
 					outgoingMessages.add(msj);
 				}
-
 			} catch (Exception e) {
 				System.err.println("Error recibiendo el mensaje: \n");
 				e.printStackTrace();
@@ -73,6 +75,12 @@ public class HiloServidor extends Thread {
 		private void cerrar() throws IOException {
 			out.close();
 			in.close();
+			sk.close();
+			for (int i = 0; i < users.size(); i++) {
+				if (sk == users.get(i)) {
+					users.remove(sk);
+				}
+			}
 		}
 
 	}
@@ -80,16 +88,20 @@ public class HiloServidor extends Thread {
 	public class SendThread extends Thread {
 
 		public void run() {
-
 			try {
 				while (true) {
-					for(int i=0; i<users.size();i++){
+					for (int i = 0; i < users.size(); i++) {
 						out = new DataOutputStream(users.get(i).getOutputStream());
-						out.writeUTF(outgoingMessages.take());
+						out.writeUTF(id+": "+outgoingMessages.take());
 						out.flush();
 					}
 				}
 			} catch (Exception e) {
+				for (int i = 0; i < users.size(); i++) {
+					if (sk == users.get(i)) {
+						users.remove(sk);
+					}
+				}
 				System.err.println("Error recibiendo el mensaje: \n");
 				e.printStackTrace();
 			}

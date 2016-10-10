@@ -11,14 +11,14 @@ public class Cliente extends Thread {
 	private DataInputStream in;
 	private static DataOutputStream out;
 	private int puerto = 1000;
+	private ReceiveThread r;
 
 	public Cliente() {
 		try {
-
 			Socket cliente = new Socket("localhost", puerto);
 			in = new DataInputStream(cliente.getInputStream());
 			out = new DataOutputStream(cliente.getOutputStream());
-
+			r = new ReceiveThread();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -42,7 +42,6 @@ public class Cliente extends Thread {
 
 	public void cerrarSesion() {
 		try {
-
 			if (cliente != null) {
 				enviarMensaje("cerrar_socket_cliente");
 				in.close();
@@ -70,6 +69,24 @@ public class Cliente extends Thread {
 				}
 			}
 		}catch (Exception e) {
+		}
+	}
+
+	public void run(){
+		r.start();
+	}
+
+	public class ReceiveThread extends Thread {
+
+		public void run() {
+			try {
+				while (true) {
+					leerRespuesta();
+				}
+			} catch (Exception e) {
+				System.err.println("Error recibiendo el mensaje: \n");
+				e.printStackTrace();
+			}
 		}
 	}
 }
