@@ -1,6 +1,5 @@
 package tp4;
 
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,8 +11,8 @@ public class Generador {
 	private MatrizSimetrica matrizDeAdyacencia;
 	private int cantNodos;
 	private int cantAristas;
-	private int gradoMaxima;
-	private int gradoMinima;
+	private int gradoMaximo;
+	private int gradoMinimo;
 	private double porcAdyacencia;
 
 	public Generador(int nodos) {
@@ -45,20 +44,20 @@ public class Generador {
 		this.cantAristas = cantAristas;
 	}
 
-	public int getGradoMaxima() {
-		return gradoMaxima;
+	public int getGradoMaximo() {
+		return gradoMaximo;
 	}
 
-	public void setGradoMaxima(int gradoMaxima) {
-		this.gradoMaxima = gradoMaxima;
+	public void setGradoMaximo(int gradoMax) {
+		this.gradoMaximo = gradoMax;
 	}
 
 	public int getGradoMinima() {
-		return gradoMinima;
+		return gradoMinimo;
 	}
 
-	public void setGradoMinima(int gradoMinima) {
-		this.gradoMinima = gradoMinima;
+	public void setGradoMinima(int gradoMin) {
+		this.gradoMinimo = gradoMin;
 	}
 
 	public double getPorcAdyacencia() {
@@ -69,7 +68,11 @@ public class Generador {
 		this.porcAdyacencia = porcAdyacencia;
 	}
 
-	public void escribirArchivo(String path){
+	public void calcularPorcentajeAdyacencia() {
+		this.porcAdyacencia = (double) this.cantAristas / (this.cantNodos * (this.cantNodos - 1) / 2);
+	}
+
+	public void escribirArchivo(String path) {
 		FileWriter archivo = null;
 		PrintWriter pw = null;
 		DecimalFormat df = new DecimalFormat("#.##");
@@ -78,11 +81,12 @@ public class Generador {
 			archivo = new FileWriter(path);
 			pw = new PrintWriter(archivo);
 			calcularGrado();
-			pw.println(this.cantNodos + " " + this.cantAristas + " " + df.format(this.porcAdyacencia) + " " + this.gradoMaxima
-					+ " " + this.gradoMinima);
+			calcularPorcentajeAdyacencia();
+			pw.println(this.cantNodos + " " + this.cantAristas + " " + df.format(this.porcAdyacencia) + " "
+					+ this.gradoMaximo + " " + this.gradoMinimo);
 			for (int i = 0; i < this.cantNodos; i++) {
-				for (int j = 0; j < this.cantNodos; j++) {
-					if (i!=j && matrizDeAdyacencia.getValor(i, j) == true)
+				for (int j = i + 1; j < this.cantNodos; j++) {
+					if (matrizDeAdyacencia.getValor(i, j))
 						pw.println((i + 1) + " " + (j + 1));
 				}
 			}
@@ -101,7 +105,23 @@ public class Generador {
 	}
 
 	private void calcularGrado() {
-		// TODO Auto-generated method stub
 
+		int max = 0;
+		int min = Integer.MAX_VALUE;
+		int cont;
+		for (int i = 0; i < this.cantNodos; i++) {
+			cont = 0;
+			for (int j = 0; j < this.cantNodos; j++) {
+				if (i != j && this.matrizDeAdyacencia.getValor(i, j)) {
+					cont++;
+				}
+			}
+			if (cont > max)
+				max = cont;
+			if (cont < min)
+				min = cont;
+		}
+		this.gradoMaximo = max;
+		this.gradoMinimo = min;
 	}
 }

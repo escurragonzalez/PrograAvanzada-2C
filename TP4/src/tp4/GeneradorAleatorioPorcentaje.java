@@ -29,8 +29,6 @@ public class GeneradorAleatorioPorcentaje extends Generador {
 				cont++;
 			}
 		}
-		setCantAristas(cont * 2);
-		double porcAdy = getCantAristas() / (getCantNodos() * (getCantNodos() - 1) / 2) * 100;
-		setPorcAdyacencia(porcAdy);
+		setCantAristas(cont);
 	}
 }

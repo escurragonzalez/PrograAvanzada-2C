@@ -10,7 +10,7 @@ public class GeneradorAleatorioPorcentajeTest {
 
 	@Test
 	public void test() throws FileNotFoundException {
-		GeneradorAleatorioPorcentaje g= new GeneradorAleatorioPorcentaje(12, 0.8);
+		GeneradorAleatorioPorcentaje g= new GeneradorAleatorioPorcentaje(12, 1);
 		g.escribirArchivo("01.out");
 	}
 }
