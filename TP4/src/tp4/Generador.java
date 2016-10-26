@@ -69,7 +69,7 @@ public class Generador {
 	}
 
 	public void calcularPorcentajeAdyacencia() {
-		this.porcAdyacencia = (double) this.cantAristas / (this.cantNodos * (this.cantNodos - 1) / 2);
+		this.porcAdyacencia = (double) this.cantAristas / ((this.cantNodos * (this.cantNodos - 1) )/ 2);
 	}
 
 	public void escribirArchivo(String path) {
@@ -104,7 +104,13 @@ public class Generador {
 		}
 	}
 
-	private void calcularGrado() {
+	public void setearAnillo(){
+		for (int i = 0; i < this.cantNodos-1; i++) 
+			this.matrizDeAdyacencia.setValor(i, i+1, true);
+		this.matrizDeAdyacencia.setValor(this.cantNodos,0,true);
+	}
+	
+	protected void calcularGrado() {
 
 		int max = 0;
 		int min = Integer.MAX_VALUE;

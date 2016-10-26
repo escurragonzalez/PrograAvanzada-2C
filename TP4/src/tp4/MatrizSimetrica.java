@@ -12,7 +12,7 @@ public class MatrizSimetrica {
 		this.matrizDeAdyacencia = new boolean[this.tam];
 	}
 
-	public boolean getValor() {
+	public boolean getValor() { // esta de más?
 		return false;
 	}
 
@@ -20,6 +20,7 @@ public class MatrizSimetrica {
 		int i = getPos(fila, columna);
 		matrizDeAdyacencia[i] = valor;
 	}
+	
 
 	public boolean getValor(int fila, int columna) {
 		int i = getPos(fila, columna);

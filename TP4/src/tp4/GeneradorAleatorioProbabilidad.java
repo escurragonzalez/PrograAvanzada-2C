@@ -13,7 +13,7 @@ public class GeneradorAleatorioProbabilidad extends Generador {
 	private void generarMatriz() {
 		int cont = 0;
 		for (int i = 0; i < getCantNodos() + 2; i++) {
-			for (int j = i + 1; j < getCantNodos() - 1; j++) {
+			for (int j = i + 1; j < getCantNodos() ; j++) {
 				if (probabilidad > Math.random()) {
 					getMatrizDeAdyacencia().setValor(i, j, true);
 					cont++;

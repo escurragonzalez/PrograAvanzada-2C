@@ -18,7 +18,7 @@ public class GeneradorAleatorioPorcentaje extends Generador {
 	private void generarMatriz() {
 		int cont = 0;
 		for (int i = 0; i < getCantNodos() + 2; i++) {
-			for (int j = i + 1; j < getCantNodos() - 1; j++) {
+			for (int j = i + 1; j < getCantNodos(); j++) {
 				aristas.add(new Arista(i, j, Math.random()));
 			}
 		}
