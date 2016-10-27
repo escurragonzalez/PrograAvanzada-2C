@@ -36,7 +36,6 @@ public class GeneradorRegularGrado extends Generador {
 					cont++;
 				}
 				salto++;
-				cont++;
 			}
 		} else {
 			recorrido = (grado / 2) + 1;
@@ -55,7 +54,6 @@ public class GeneradorRegularGrado extends Generador {
 					flag = true;
 				} else
 					salto++;
-				cont++;
 			}
 		}
 		setCantAristas(cont);
