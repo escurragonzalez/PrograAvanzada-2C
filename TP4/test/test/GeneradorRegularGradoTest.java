@@ -8,7 +8,7 @@ public class GeneradorRegularGradoTest {
 
 	@Test
 	public void test() {
-		GeneradorRegularGrado g = new GeneradorRegularGrado(8,4);
+		GeneradorRegularGrado g = new GeneradorRegularGrado(8,2);
 		g.escribirArchivo("GeneradorRegularGrado.out");
 	}
 
