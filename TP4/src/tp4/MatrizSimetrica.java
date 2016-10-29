@@ -2,12 +2,12 @@ package tp4;
 
 public class MatrizSimetrica {
 
-	private int n;// Orden de la matriz
+	private int cantNodos;// Orden de la matriz
 	private int tam;// Tamaño del vector
 	private boolean matrizDeAdyacencia[];
 
 	public MatrizSimetrica(int n) {
-		this.n = n;
+		this.cantNodos = n;
 		this.tam = (int) ((Math.pow(n, 2) - n) / 2);// tamaño del vector
 		this.matrizDeAdyacencia = new boolean[this.tam];
 	}
@@ -34,7 +34,33 @@ public class MatrizSimetrica {
 			fila = columna;
 			columna = aux;
 		}
-		i = fila * this.n + columna - (int) ((Math.pow(fila, 2) + 3 * fila + 2)) / 2;
+		i = fila * this.cantNodos + columna - (int) ((Math.pow(fila, 2) + 3 * fila + 2)) / 2;
 		return i;
 	}
+
+	public int getCantNodos() {
+		return cantNodos;
+	}
+
+	public void setCantNodos(int cantNodos) {
+		this.cantNodos = cantNodos;
+	}
+
+	public int getTam() {
+		return tam;
+	}
+
+	public void setTam(int tam) {
+		this.tam = tam;
+	}
+
+	public boolean[] getMatrizDeAdyacencia() {
+		return matrizDeAdyacencia;
+	}
+
+	public void setMatrizDeAdyacencia(boolean[] matrizDeAdyacencia) {
+		this.matrizDeAdyacencia = matrizDeAdyacencia;
+	}
+
+	
 }
