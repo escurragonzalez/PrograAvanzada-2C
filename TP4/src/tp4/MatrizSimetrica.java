@@ -61,6 +61,4 @@ public class MatrizSimetrica {
 	public void setMatrizDeAdyacencia(boolean[] matrizDeAdyacencia) {
 		this.matrizDeAdyacencia = matrizDeAdyacencia;
 	}
-
-	
 }

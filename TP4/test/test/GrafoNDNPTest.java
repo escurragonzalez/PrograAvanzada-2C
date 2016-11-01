@@ -12,7 +12,14 @@ public class GrafoNDNPTest {
 	public void queAndaElColoreoSecuenciaAleatorio() throws FileNotFoundException {
 		GrafoNDNP grafo = new GrafoNDNP("GrafoNDNP.in");
 		grafo.SecuenciaAleatorio();
-		grafo.escribirArchivo("GrafoNDNP.out");
+		grafo.escribirArchivo("GrafoNDNPSecuenciaAleatoria.out");
+	}
+	
+	@Test
+	public void queAndaElColoreoWelshPowell() throws FileNotFoundException {
+		GrafoNDNP grafo = new GrafoNDNP("GrafoNDNP.in");
+		grafo.welshPowell();
+		grafo.escribirArchivo("GrafoNDNPWelshPowell.out");
 	}
 
 }
