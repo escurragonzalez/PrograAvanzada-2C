@@ -21,5 +21,12 @@ public class GrafoNDNPTest {
 		grafo.welshPowell();
 		grafo.escribirArchivo("GrafoNDNPWelshPowell.out");
 	}
+	
+	@Test
+	public void queAndaElColoreoMatula() throws FileNotFoundException {
+		GrafoNDNP grafo = new GrafoNDNP("GrafoNDNP.in");
+		grafo.matula();
+		grafo.escribirArchivo("GrafoNDNPMatula.out");
+	}
 
 }
