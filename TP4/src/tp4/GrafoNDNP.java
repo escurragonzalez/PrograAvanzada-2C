@@ -19,7 +19,7 @@ public class GrafoNDNP {
 	private int[] nodosColoreados;
 	private int cantidadAristas;
 	private double porcentaje;
-	private int gradoMax, gradoMin;
+	private int gradoMax, gradoMin,cantColores;
 	private ArrayList<Integer> nodosSecuencia;
 
 	public GrafoNDNP(String archivo) throws FileNotFoundException {
@@ -157,7 +157,7 @@ public class GrafoNDNP {
 			}
 		}
 	}
-	
+
 	public void generarVectorMatulaAleatorio() {
 		int cont, gradoMenor = gradoMin;
 		ArrayList<Integer> auxiliar = new ArrayList<Integer>();
@@ -182,7 +182,7 @@ public class GrafoNDNP {
 			}
 		}
 	}
-	
+
 	public void matula() {
 		int indice;
 		ArrayList<Integer> color = new ArrayList<Integer>();
@@ -218,15 +218,25 @@ public class GrafoNDNP {
 		}
 	}
 
+	private void setCantidadColores(){
+		int max=0;
+	    for (int i = 0; i < nodosColoreados.length; i++) {
+			if(max<nodosColoreados[i])
+				max=nodosColoreados[i];
+		}
+		this.cantColores=max;
+	}
+
 	public void escribirArchivo(String path) {
 		FileWriter archivo = null;
 		PrintWriter pw = null;
 		DecimalFormat df = new DecimalFormat("#.##");
 		df.setRoundingMode(RoundingMode.CEILING);
+		setCantidadColores();
 		try {
 			archivo = new FileWriter(path);
 			pw = new PrintWriter(archivo);
-			pw.println(matriz.getCantNodos() + " " + this.cantidadAristas + " " + df.format(this.porcentaje) + " "
+			pw.println(matriz.getCantNodos() + " " +this.cantColores + " " + this.cantidadAristas + " " + df.format(this.porcentaje) + " "
 					+ this.gradoMax + " " + this.gradoMin);
 			for (int i = 0; i < nodosColoreados.length; i++)
 				pw.println((nodosSecuencia.get(i) + 1) + " " + nodosColoreados[nodosSecuencia.get(i)]);
