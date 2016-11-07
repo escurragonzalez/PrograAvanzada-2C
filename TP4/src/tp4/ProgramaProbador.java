@@ -16,9 +16,10 @@ public class ProgramaProbador {
 	private int gradoMax, gradoMin, cantColoresOut;
 	private int nodosOut, aristasOut, gradoMaxOut, gradoMinOut;
 	private String salida;
+	private int[] nodosColores, nodosSecuencia;
 
-	private void cargarArchivoIn(String path) throws FileNotFoundException {
-		Scanner scanner = new Scanner(new File(path));
+	public ProgramaProbador(String pathIn, String pathOut) throws FileNotFoundException {
+		Scanner scanner = new Scanner(new File(pathIn));
 		scanner.useLocale(Locale.ENGLISH);
 		matriz = new MatrizSimetrica(scanner.nextInt());
 		cantidadAristas = scanner.nextInt();
@@ -30,14 +31,6 @@ public class ProgramaProbador {
 			matriz.setValor(scanner.nextInt() - 1, scanner.nextInt() - 1, true);
 
 		scanner.close();
-	}
-
-	public ProgramaProbador(String pathIn, String pathOut) throws FileNotFoundException {
-		cargarArchivoIn(pathIn);
-		String linea;
-		String[] params;
-		int nodo,color;
-
 		Scanner sc = new Scanner(new File(pathOut));
 		nodosOut = sc.nextInt();
 		cantColoresOut = sc.nextInt();
@@ -45,34 +38,35 @@ public class ProgramaProbador {
 		adyacenciaOut = sc.nextDouble();
 		gradoMaxOut = sc.nextInt();
 		gradoMinOut = sc.nextInt();
-		if(matriz.getCantNodos()!=nodosOut){
-			salida="No todos los nodos fueron pintados";
-			return;
+		nodosColores = new int[nodosOut];
+		nodosSecuencia = new int[nodosOut];
+		for (int i = 0; i < nodosColores.length; i++) {
+			nodosSecuencia[i] = sc.nextInt() - 1;
+			nodosColores[i] = sc.nextInt();
 		}
-		for (int i = 0; i < aristasOut; i++) {
-
-		}
+		sc.close();
 	}
 
-	public void escribirSalida(String path) {
-		FileWriter archivo = null;
-		PrintWriter pw = null;
-		
-		try {
-			archivo = new FileWriter(path);
-			pw = new PrintWriter(archivo);
-			pw.println(salida);
-			archivo.close();
-		} catch (Exception e) {
-			System.out.println("Error de Escritura Archivo de Salida - " + e.getMessage());
-		} finally {
-			if (null != archivo) {
-				try {
-					archivo.close();
-				} catch (IOException e) {
-					e.printStackTrace();
+	public boolean programaProbador() {
+		int color, nodo, indice = 0;
+
+		if (matriz.getCantNodos() != nodosOut || cantidadAristas != aristasOut || gradoMax != gradoMaxOut
+				|| gradoMin != gradoMinOut)
+			return false;
+
+		for (int i = 0; i < nodosColores.length; i++) {
+			color = nodosColores[i];
+			nodo = nodosSecuencia[i];
+			for (int j = 0; j < nodosColores.length; j++) {
+				if (nodo != j && matriz.getValor(nodo, j) == true) {
+					indice = 0;
+					while (nodosSecuencia[indice] != j)
+						indice++;
+					if (nodosColores[indice] == color)
+						return false;
 				}
 			}
 		}
+		return true;
 	}
 }
