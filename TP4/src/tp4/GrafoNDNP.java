@@ -19,7 +19,7 @@ public class GrafoNDNP {
 	private int[] nodosColoreados;
 	private int cantidadAristas;
 	private double porcentaje;
-	private int gradoMax, gradoMin,cantColores;
+	private int gradoMax, gradoMin, cantColores;
 	private ArrayList<Integer> nodosSecuencia;
 
 	public GrafoNDNP(String archivo) throws FileNotFoundException {
@@ -64,7 +64,6 @@ public class GrafoNDNP {
 	}
 
 	public void SecuenciaAleatorio() {
-		int indice;
 		ArrayList<Integer> color = new ArrayList<Integer>();
 		ArrayList<Integer> auxiliar = new ArrayList<Integer>();
 
@@ -76,14 +75,8 @@ public class GrafoNDNP {
 			} else {
 				for (int j = 0; j < matriz.getCantNodos(); j++) {
 					if (j != nodosSecuencia.get(i) && matriz.getValor(j, nodosSecuencia.get(i)) == true) {
-						if (nodosColoreados[j] != 0) {
-							indice = 0;
-							while (indice != color.size() && color.get(indice) != nodosColoreados[j])
-								indice++;
-							if (indice != color.size() && color.get(indice) == nodosColoreados[j]
-									&& !auxiliar.contains(color.get(indice)))
-								auxiliar.add(color.get(indice));
-						}
+						if (nodosColoreados[j] != 0 && !auxiliar.contains(nodosColoreados[j]))
+							auxiliar.add(nodosColoreados[j]);
 					}
 				}
 				if (auxiliar.isEmpty())
@@ -125,7 +118,6 @@ public class GrafoNDNP {
 	}
 
 	public void welshPowell() {
-		int indice;
 		ArrayList<Integer> color = new ArrayList<Integer>();
 		ArrayList<Integer> auxiliar = new ArrayList<Integer>();
 
@@ -137,14 +129,8 @@ public class GrafoNDNP {
 			} else {
 				for (int j = 0; j < matriz.getCantNodos(); j++) {
 					if (j != nodosSecuencia.get(i) && matriz.getValor(j, nodosSecuencia.get(i)) == true) {
-						if (nodosColoreados[j] != 0) {
-							indice = 0;
-							while (indice != color.size() && color.get(indice) != nodosColoreados[j])
-								indice++;
-							if (indice != color.size() && color.get(indice) == nodosColoreados[j]
-									&& !auxiliar.contains(color.get(indice)))
-								auxiliar.add(color.get(indice));
-						}
+						if (nodosColoreados[j] != 0 && !auxiliar.contains(nodosColoreados[j]))
+							auxiliar.add(nodosColoreados[j]);
 					}
 				}
 				if (auxiliar.isEmpty())
@@ -164,7 +150,7 @@ public class GrafoNDNP {
 		int cont, gradoMenor = gradoMin;
 		ArrayList<Integer> auxiliar = new ArrayList<Integer>();
 
-		for (int k = 0; k < matriz.getCantNodos() && gradoMenor != gradoMax+1; k++) {
+		for (int k = 0; k < matriz.getCantNodos() && gradoMenor != gradoMax + 1; k++) {
 			for (int i = 0; i < matriz.getCantNodos(); i++) {
 				cont = 0;
 				for (int j = 0; j < matriz.getCantNodos(); j++) {
@@ -186,7 +172,6 @@ public class GrafoNDNP {
 	}
 
 	public void matula() {
-		int indice;
 		ArrayList<Integer> color = new ArrayList<Integer>();
 		ArrayList<Integer> auxiliar = new ArrayList<Integer>();
 
@@ -198,14 +183,8 @@ public class GrafoNDNP {
 			} else {
 				for (int j = 0; j < matriz.getCantNodos(); j++) {
 					if (j != nodosSecuencia.get(i) && matriz.getValor(j, nodosSecuencia.get(i)) == true) {
-						if (nodosColoreados[j] != 0) {
-							indice = 0;
-							while (indice != color.size() && color.get(indice) != nodosColoreados[j])
-								indice++;
-							if (indice != color.size() && color.get(indice) == nodosColoreados[j]
-									&& !auxiliar.contains(color.get(indice)))
-								auxiliar.add(color.get(indice));
-						}
+						if (nodosColoreados[j] != 0 && !auxiliar.contains(nodosColoreados[j]))
+							auxiliar.add(nodosColoreados[j]);
 					}
 				}
 				if (auxiliar.isEmpty())
@@ -221,13 +200,13 @@ public class GrafoNDNP {
 		cantColores = color.size();
 	}
 
-	private void setCantidadColores(){
-		int max=0;
-	    for (int i = 0; i < nodosColoreados.length; i++) {
-			if(max<nodosColoreados[i])
-				max=nodosColoreados[i];
+	private void setCantidadColores() {
+		int max = 0;
+		for (int i = 0; i < nodosColoreados.length; i++) {
+			if (max < nodosColoreados[i])
+				max = nodosColoreados[i];
 		}
-		this.cantColores=max;
+		this.cantColores = max;
 	}
 
 	public void escribirArchivo(String path) {
@@ -239,8 +218,8 @@ public class GrafoNDNP {
 		try {
 			archivo = new FileWriter(path);
 			pw = new PrintWriter(archivo);
-			pw.println(matriz.getCantNodos() + " " +this.cantColores + " " + this.cantidadAristas + " " + df.format(this.porcentaje) + " "
-					+ this.gradoMax + " " + this.gradoMin);
+			pw.println(matriz.getCantNodos() + " " + this.cantColores + " " + this.cantidadAristas + " "
+					+ df.format(this.porcentaje) + " " + this.gradoMax + " " + this.gradoMin);
 			for (int i = 0; i < nodosColoreados.length; i++)
 				pw.println((nodosSecuencia.get(i) + 1) + " " + nodosColoreados[nodosSecuencia.get(i)]);
 

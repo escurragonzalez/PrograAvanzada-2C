@@ -1,18 +1,25 @@
-package tp4;
+package test;
 
 import java.io.FileNotFoundException;
 
+import org.junit.Test;
+
+import tp4.GeneradorAleatorioPorcentaje;
+import tp4.GrafoNDNP;
+
 public class AnalisisEstadistico {
 
-	public AnalisisEstadistico(int nodos, double adyacencia) {
-		GeneradorAleatorioPorcentaje generador = new GeneradorAleatorioPorcentaje(nodos, adyacencia);
-		generador.escribirArchivo("coloreo.out");
-	}
-
-	public void secuenciaAleatorio() throws FileNotFoundException {
+	@Test
+	public void secuenciaAleatoria() throws FileNotFoundException {
+		int nodos = 600;
+		double adyacencia = 0.4;
 		int cantMenorColor = 0;
 		int corridaMenorColor = 0;
+		GeneradorAleatorioPorcentaje generador = new GeneradorAleatorioPorcentaje(nodos, adyacencia);
+
+		generador.escribirArchivo("coloreo.out");
 		GrafoNDNP coloreo = new GrafoNDNP("coloreo.out");
+
 		for (int i = 0; i < 100; i++) {
 
 			coloreo.SecuenciaAleatorio();
@@ -24,11 +31,6 @@ public class AnalisisEstadistico {
 		}
 		System.out.println("Menor Cantidad de color: " + cantMenorColor);
 		System.out.println("En la corrida: " + corridaMenorColor);
-
 	}
 
-	public static void main(String[] args) throws FileNotFoundException {
-		AnalisisEstadistico analisis = new AnalisisEstadistico(600, 0.4);
-		analisis.secuenciaAleatorio();
-	}
 }
