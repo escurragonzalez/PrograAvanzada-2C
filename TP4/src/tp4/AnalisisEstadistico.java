@@ -7,10 +7,10 @@ public class AnalisisEstadistico {
 	public static void main(String[] args) throws FileNotFoundException {
 		int nodos = 600;
 		double adyacencia = 0.4;
-		int cantMenorColor = Integer.MAX_VALUE;
+		int cantMenorColor=0;// = Integer.MAX_VALUE;
 		int corridaMenorColor = 0;
-		// GeneradorAleatorioPorcentaje generador = new GeneradorAleatorioPorcentaje(nodos, adyacencia);
-		GeneradorAleatorioProbabilidad generador = new GeneradorAleatorioProbabilidad(nodos, adyacencia);
+		GeneradorAleatorioPorcentaje generador = new GeneradorAleatorioPorcentaje(nodos, adyacencia);
+		//GeneradorAleatorioProbabilidad generador = new GeneradorAleatorioProbabilidad(nodos, adyacencia);
 		// GeneradorRegularPorcentaje generador = new GeneradorRegularPorcentaje(nodos, adyacencia);
 
 		generador.escribirArchivo("coloreo.out");

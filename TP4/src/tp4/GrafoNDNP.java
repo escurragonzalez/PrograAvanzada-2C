@@ -96,6 +96,7 @@ public class GrafoNDNP {
 				}
 			}
 		}
+		cantColores = color.size();
 	}
 
 	public void generarVectorWelshPowellAleatorio() {
@@ -156,6 +157,7 @@ public class GrafoNDNP {
 				}
 			}
 		}
+		cantColores = color.size();
 	}
 
 	public void generarVectorMatulaAleatorio() {
@@ -216,6 +218,7 @@ public class GrafoNDNP {
 				}
 			}
 		}
+		cantColores = color.size();
 	}
 
 	private void setCantidadColores(){
