@@ -10,6 +10,6 @@ public class GeneradorAleatorioProbabilidadTest {
 	@Test
 	public void test() throws FileNotFoundException {
 		GeneradorAleatorioProbabilidad g= new GeneradorAleatorioProbabilidad(10, 0.5);
-		g.escribirArchivo("01.out");
+		g.escribirArchivo("test/out/01.out");
 	}
 }

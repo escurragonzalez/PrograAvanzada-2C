@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.util.Locale;
 
 public class Generador {
 
@@ -75,14 +76,14 @@ public class Generador {
 	public void escribirArchivo(String path) {
 		FileWriter archivo = null;
 		PrintWriter pw = null;
-		DecimalFormat df = new DecimalFormat("#.##");
-		df.setRoundingMode(RoundingMode.CEILING);
+	
 		try {
 			archivo = new FileWriter(path);
 			pw = new PrintWriter(archivo);
 			calcularGrado();
 			calcularPorcentajeAdyacencia();
-			pw.println(this.cantNodos + " " + this.cantAristas + " " + df.format(this.porcAdyacencia) + " "
+			String adyac= String.format(Locale.ROOT, "%.2f", this.porcAdyacencia);
+			pw.println(this.cantNodos + " " + this.cantAristas + " " + adyac + " "
 					+ this.gradoMaximo + " " + this.gradoMinimo);
 			for (int i = 0; i < this.cantNodos; i++) {
 				for (int j = i + 1; j < this.cantNodos; j++) {

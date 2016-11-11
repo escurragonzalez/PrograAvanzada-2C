@@ -11,7 +11,7 @@ public class ProgramaProbadorTest {
 
 	@Test
 	public void test() throws FileNotFoundException {
-		ProgramaProbador p = new ProgramaProbador("GrafoNDNP.in", "GrafoNDNP.out");
+		ProgramaProbador p = new ProgramaProbador("test/out/GrafoNDNP.in", "test/out/GrafoNDNP.out");
 		Assert.assertTrue(p.programaProbador());
 	}
 

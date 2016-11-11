@@ -20,7 +20,7 @@ public class GeneradorTest {
 		grafo.getMatrizDeAdyacencia().setValor(2, 3, true);
 		grafo.getMatrizDeAdyacencia().setValor(3, 4, true);
 		grafo.setCantAristas(5);
-		grafo.escribirArchivo("Grafo.out");
+		grafo.escribirArchivo("test/out/Grafo.out");
 		
 		grafo.calcularPorcentajeAdyacencia();
 		Assert.assertEquals(0.5, grafo.getPorcAdyacencia(),0);

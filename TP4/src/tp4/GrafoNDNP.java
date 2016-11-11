@@ -256,4 +256,8 @@ public class GrafoNDNP {
 			}
 		}
 	}
+
+	public int getCantColores() {
+		return this.cantColores;
+	}
 }
