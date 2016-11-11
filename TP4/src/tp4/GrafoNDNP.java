@@ -68,25 +68,22 @@ public class GrafoNDNP {
 		ArrayList<Integer> auxiliar = new ArrayList<Integer>();
 
 		generarVectorSecuenciaAleatorio();
-		for (int i = 0; i < nodosSecuencia.size(); i++) {
-			if (i == 0) {
-				color.add(1);
+		color.add(1);
+		nodosColoreados[nodosSecuencia.get(0)] = color.get(0);
+		for (int i = 1; i < nodosSecuencia.size(); i++) {
+			for (int j = 0; j < matriz.getCantNodos(); j++) {
+				if (j != nodosSecuencia.get(i) && matriz.getValor(j, nodosSecuencia.get(i)) == true) {
+					if (nodosColoreados[j] != 0 && !auxiliar.contains(nodosColoreados[j]))
+						auxiliar.add(nodosColoreados[j]);
+				}
+			}
+			if (auxiliar.isEmpty())
 				nodosColoreados[nodosSecuencia.get(i)] = color.get(0);
-			} else {
-				for (int j = 0; j < matriz.getCantNodos(); j++) {
-					if (j != nodosSecuencia.get(i) && matriz.getValor(j, nodosSecuencia.get(i)) == true) {
-						if (nodosColoreados[j] != 0 && !auxiliar.contains(nodosColoreados[j]))
-							auxiliar.add(nodosColoreados[j]);
-					}
-				}
-				if (auxiliar.isEmpty())
-					nodosColoreados[nodosSecuencia.get(i)] = color.get(0);
-				else {
-					nodosColoreados[nodosSecuencia.get(i)] = colorAPoner(color, auxiliar);
-					if (nodosColoreados[nodosSecuencia.get(i)] == color.size() + 1)
-						color.add(color.size() + 1);
-					auxiliar.clear();
-				}
+			else {
+				nodosColoreados[nodosSecuencia.get(i)] = colorAPoner(color, auxiliar);
+				if (nodosColoreados[nodosSecuencia.get(i)] == color.size() + 1)
+					color.add(color.size() + 1);
+				auxiliar.clear();
 			}
 		}
 		cantColores = color.size();
@@ -122,25 +119,22 @@ public class GrafoNDNP {
 		ArrayList<Integer> auxiliar = new ArrayList<Integer>();
 
 		generarVectorWelshPowellAleatorio();
-		for (int i = 0; i < nodosSecuencia.size(); i++) {
-			if (i == 0) {
-				color.add(1);
+		color.add(1);
+		nodosColoreados[nodosSecuencia.get(0)] = color.get(0);
+		for (int i = 1; i < nodosSecuencia.size(); i++) {
+			for (int j = 0; j < matriz.getCantNodos(); j++) {
+				if (j != nodosSecuencia.get(i) && matriz.getValor(j, nodosSecuencia.get(i)) == true) {
+					if (nodosColoreados[j] != 0 && !auxiliar.contains(nodosColoreados[j]))
+						auxiliar.add(nodosColoreados[j]);
+				}
+			}
+			if (auxiliar.isEmpty())
 				nodosColoreados[nodosSecuencia.get(i)] = color.get(0);
-			} else {
-				for (int j = 0; j < matriz.getCantNodos(); j++) {
-					if (j != nodosSecuencia.get(i) && matriz.getValor(j, nodosSecuencia.get(i)) == true) {
-						if (nodosColoreados[j] != 0 && !auxiliar.contains(nodosColoreados[j]))
-							auxiliar.add(nodosColoreados[j]);
-					}
-				}
-				if (auxiliar.isEmpty())
-					nodosColoreados[nodosSecuencia.get(i)] = color.get(0);
-				else {
-					nodosColoreados[nodosSecuencia.get(i)] = colorAPoner(color, auxiliar);
-					if (nodosColoreados[nodosSecuencia.get(i)] == color.size() + 1)
-						color.add(color.size() + 1);
-					auxiliar.clear();
-				}
+			else {
+				nodosColoreados[nodosSecuencia.get(i)] = colorAPoner(color, auxiliar);
+				if (nodosColoreados[nodosSecuencia.get(i)] == color.size() + 1)
+					color.add(color.size() + 1);
+				auxiliar.clear();
 			}
 		}
 		cantColores = color.size();
@@ -176,25 +170,22 @@ public class GrafoNDNP {
 		ArrayList<Integer> auxiliar = new ArrayList<Integer>();
 
 		generarVectorMatulaAleatorio();
-		for (int i = 0; i < nodosSecuencia.size(); i++) {
-			if (i == 0) {
-				color.add(1);
+		color.add(1);
+		nodosColoreados[nodosSecuencia.get(0)] = color.get(0);
+		for (int i = 1; i < nodosSecuencia.size(); i++) {
+			for (int j = 0; j < matriz.getCantNodos(); j++) {
+				if (j != nodosSecuencia.get(i) && matriz.getValor(j, nodosSecuencia.get(i)) == true) {
+					if (nodosColoreados[j] != 0 && !auxiliar.contains(nodosColoreados[j]))
+						auxiliar.add(nodosColoreados[j]);
+				}
+			}
+			if (auxiliar.isEmpty())
 				nodosColoreados[nodosSecuencia.get(i)] = color.get(0);
-			} else {
-				for (int j = 0; j < matriz.getCantNodos(); j++) {
-					if (j != nodosSecuencia.get(i) && matriz.getValor(j, nodosSecuencia.get(i)) == true) {
-						if (nodosColoreados[j] != 0 && !auxiliar.contains(nodosColoreados[j]))
-							auxiliar.add(nodosColoreados[j]);
-					}
-				}
-				if (auxiliar.isEmpty())
-					nodosColoreados[nodosSecuencia.get(i)] = color.get(0);
-				else {
-					nodosColoreados[nodosSecuencia.get(i)] = colorAPoner(color, auxiliar);
-					if (nodosColoreados[nodosSecuencia.get(i)] == color.size() + 1)
-						color.add(color.size() + 1);
-					auxiliar.clear();
-				}
+			else {
+				nodosColoreados[nodosSecuencia.get(i)] = colorAPoner(color, auxiliar);
+				if (nodosColoreados[nodosSecuencia.get(i)] == color.size() + 1)
+					color.add(color.size() + 1);
+				auxiliar.clear();
 			}
 		}
 		cantColores = color.size();
@@ -224,9 +215,7 @@ public class GrafoNDNP {
 				pw.println((nodosSecuencia.get(i) + 1) + " " + nodosColoreados[nodosSecuencia.get(i)]);
 
 			archivo.close();
-		} catch (
-
-		Exception e) {
+		} catch (Exception e) {
 			System.out.println("Error de Escritura Archivo de Salida - " + e.getMessage());
 		} finally {
 			if (null != archivo) {

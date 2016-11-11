@@ -13,7 +13,7 @@ public class AnalisisEstadistico {
 	public void secuenciaAleatoria() throws FileNotFoundException {
 		int nodos = 600;
 		double adyacencia = 0.4;
-		int cantMenorColor = 0;
+		int cantMenorColor = (int) Double.POSITIVE_INFINITY;
 		int corridaMenorColor = 0;
 		GeneradorAleatorioPorcentaje generador = new GeneradorAleatorioPorcentaje(nodos, adyacencia);
 
@@ -23,7 +23,7 @@ public class AnalisisEstadistico {
 		for (int i = 0; i < 100; i++) {
 
 			coloreo.SecuenciaAleatorio();
-			if (cantMenorColor < coloreo.getCantColores()) {
+			if (cantMenorColor > coloreo.getCantColores()) {
 				System.out.println(cantMenorColor);
 				cantMenorColor = coloreo.getCantColores();
 				corridaMenorColor = i + 1;
