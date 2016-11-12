@@ -2,6 +2,7 @@ package test;
 
 import java.io.FileNotFoundException;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import tp4.GeneradorAleatorioPorcentaje;
@@ -20,11 +21,59 @@ public class AnalisisEstadistico {
 		generador.escribirArchivo("coloreo.out");
 		GrafoNDNP coloreo = new GrafoNDNP("coloreo.out");
 
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 1000; i++) {
 
 			coloreo.SecuenciaAleatorio();
+			System.out.println(coloreo.getCantColores());
 			if (cantMenorColor > coloreo.getCantColores()) {
-				System.out.println(cantMenorColor);
+				cantMenorColor = coloreo.getCantColores();
+				corridaMenorColor = i + 1;
+			}
+		}
+		System.out.println("Menor Cantidad de color: " + cantMenorColor);
+		System.out.println("En la corrida: " + corridaMenorColor);
+	}
+
+	@Ignore
+	public void welshPowell() throws FileNotFoundException {
+		int nodos = 600;
+		double adyacencia = 0.4;
+		int cantMenorColor = (int) Double.POSITIVE_INFINITY;
+		int corridaMenorColor = 0;
+		GeneradorAleatorioPorcentaje generador = new GeneradorAleatorioPorcentaje(nodos, adyacencia);
+
+		generador.escribirArchivo("coloreo.out");
+		GrafoNDNP coloreo = new GrafoNDNP("coloreo.out");
+
+		for (int i = 0; i < 1000; i++) {
+
+			coloreo.welshPowell();
+			System.out.println(coloreo.getCantColores());
+			if (cantMenorColor > coloreo.getCantColores()) {
+				cantMenorColor = coloreo.getCantColores();
+				corridaMenorColor = i + 1;
+			}
+		}
+		System.out.println("Menor Cantidad de color: " + cantMenorColor);
+		System.out.println("En la corrida: " + corridaMenorColor);
+	}
+
+	@Ignore
+	public void matula() throws FileNotFoundException {
+		int nodos = 600;
+		double adyacencia = 0.4;
+		int cantMenorColor = (int) Double.POSITIVE_INFINITY;
+		int corridaMenorColor = 0;
+		GeneradorAleatorioPorcentaje generador = new GeneradorAleatorioPorcentaje(nodos, adyacencia);
+
+		generador.escribirArchivo("coloreo.out");
+		GrafoNDNP coloreo = new GrafoNDNP("coloreo.out");
+
+		for (int i = 0; i < 1000; i++) {
+
+			coloreo.matula();
+			System.out.println(coloreo.getCantColores());
+			if (cantMenorColor > coloreo.getCantColores()) {
 				cantMenorColor = coloreo.getCantColores();
 				corridaMenorColor = i + 1;
 			}

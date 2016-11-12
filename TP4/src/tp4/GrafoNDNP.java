@@ -12,6 +12,8 @@ import java.util.Collections;
 import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 public class GrafoNDNP {
 
@@ -42,32 +44,30 @@ public class GrafoNDNP {
 
 	public void generarVectorSecuenciaAleatorio() {
 		for (int i = 0; i < nodosColoreados.length; i++)
+			nodosColoreados[i] = 0;
+		nodosSecuencia.clear();
+		for (int i = 0; i < nodosColoreados.length; i++)
 			nodosSecuencia.add(i);
 		final long seed = System.nanoTime();
 		Collections.shuffle(nodosSecuencia, new Random(seed));
 	}
 
-	public int colorAPoner(ArrayList<Integer> color, ArrayList<Integer> auxiliar) {
+	public int colorAPoner(ArrayList<Integer> color, SortedSet<Integer> auxiliar) {
 		int indice = 0;
 		if (color.size() == auxiliar.size())
 			return color.size() + 1;
 
-		Collections.sort(auxiliar);
-		while (indice != color.size() && indice != auxiliar.size()) {
-			if (color.get(indice) != auxiliar.get(indice))
+		for (Integer integer : auxiliar) {
+			if (color.get(indice) != integer)
 				return color.get(indice);
 			indice++;
 		}
-		if (indice != color.size())
-			return color.get(indice);
-		return 0;
+		return color.get(indice);
 	}
 
-	public void SecuenciaAleatorio() {
+	public void algoritmoDeColoreo() {
 		ArrayList<Integer> color = new ArrayList<Integer>();
-		ArrayList<Integer> auxiliar = new ArrayList<Integer>();
-
-		generarVectorSecuenciaAleatorio();
+		SortedSet<Integer> auxiliar = new TreeSet<Integer>();
 		color.add(1);
 		nodosColoreados[nodosSecuencia.get(0)] = color.get(0);
 		for (int i = 1; i < nodosSecuencia.size(); i++) {
@@ -87,108 +87,81 @@ public class GrafoNDNP {
 			}
 		}
 		cantColores = color.size();
+	}
+
+	public void SecuenciaAleatorio() {
+		generarVectorSecuenciaAleatorio();
+		algoritmoDeColoreo();
 	}
 
 	public void generarVectorWelshPowellAleatorio() {
 		int cont, gradoMayor = gradoMax;
 		ArrayList<Integer> auxiliar = new ArrayList<Integer>();
+		int[] grado = new int[matriz.getCantNodos()];
+		for (int i = 0; i < nodosColoreados.length; i++)
+			nodosColoreados[i] = 0;
+		nodosSecuencia.clear();
 
-		for (int k = 0; k < matriz.getCantNodos() && gradoMayor != 0; k++) {
-			for (int i = 0; i < matriz.getCantNodos(); i++) {
-				cont = 0;
-				for (int j = 0; j < matriz.getCantNodos(); j++) {
-					if (i != j && matriz.getValor(i, j))
-						cont++;
-				}
-				if (cont == gradoMayor)
+		for (int i = 0; i < nodosColoreados.length; i++) {
+			cont = 0;
+			for (int j = 0; j < nodosColoreados.length; j++) {
+				if (i != j && matriz.getValor(i, j) == true)
+					cont++;
+			}
+			grado[i] = cont;
+		}
+
+		while (gradoMayor != 0) {
+			for (int i = 0; i < grado.length; i++) {
+				if (grado[i] == gradoMayor)
 					auxiliar.add(i);
 			}
-			if (!auxiliar.isEmpty()) {
-				final long seed = System.nanoTime();
-				Collections.shuffle(auxiliar, new Random(seed));
-				for (int i = 0; i < auxiliar.size(); i++)
-					nodosSecuencia.add(auxiliar.get(i));
-				auxiliar.clear();
-				gradoMayor--;
-			}
+			final long seed = System.nanoTime();
+			Collections.shuffle(auxiliar, new Random(seed));
+			nodosSecuencia.addAll(auxiliar);
+			auxiliar.clear();
+			gradoMayor--;
 		}
 	}
 
 	public void welshPowell() {
-		ArrayList<Integer> color = new ArrayList<Integer>();
-		ArrayList<Integer> auxiliar = new ArrayList<Integer>();
-
 		generarVectorWelshPowellAleatorio();
-		color.add(1);
-		nodosColoreados[nodosSecuencia.get(0)] = color.get(0);
-		for (int i = 1; i < nodosSecuencia.size(); i++) {
-			for (int j = 0; j < matriz.getCantNodos(); j++) {
-				if (j != nodosSecuencia.get(i) && matriz.getValor(j, nodosSecuencia.get(i)) == true) {
-					if (nodosColoreados[j] != 0 && !auxiliar.contains(nodosColoreados[j]))
-						auxiliar.add(nodosColoreados[j]);
-				}
-			}
-			if (auxiliar.isEmpty())
-				nodosColoreados[nodosSecuencia.get(i)] = color.get(0);
-			else {
-				nodosColoreados[nodosSecuencia.get(i)] = colorAPoner(color, auxiliar);
-				if (nodosColoreados[nodosSecuencia.get(i)] == color.size() + 1)
-					color.add(color.size() + 1);
-				auxiliar.clear();
-			}
-		}
-		cantColores = color.size();
+		algoritmoDeColoreo();
 	}
 
 	public void generarVectorMatulaAleatorio() {
 		int cont, gradoMenor = gradoMin;
 		ArrayList<Integer> auxiliar = new ArrayList<Integer>();
+		int[] grado = new int[matriz.getCantNodos()];
+		for (int i = 0; i < nodosColoreados.length; i++)
+			nodosColoreados[i] = 0;
+		nodosSecuencia.clear();
 
-		for (int k = 0; k < matriz.getCantNodos() && gradoMenor != gradoMax + 1; k++) {
-			for (int i = 0; i < matriz.getCantNodos(); i++) {
-				cont = 0;
-				for (int j = 0; j < matriz.getCantNodos(); j++) {
-					if (i != j && matriz.getValor(i, j))
-						cont++;
-				}
-				if (cont == gradoMenor)
+		for (int i = 0; i < nodosColoreados.length; i++) {
+			cont = 0;
+			for (int j = 0; j < nodosColoreados.length; j++) {
+				if (i != j && matriz.getValor(i, j) == true)
+					cont++;
+			}
+			grado[i] = cont;
+		}
+
+		while (gradoMenor != gradoMax) {
+			for (int i = 0; i < grado.length; i++) {
+				if (grado[i] == gradoMenor)
 					auxiliar.add(i);
 			}
-			if (!auxiliar.isEmpty()) {
-				final long seed = System.nanoTime();
-				Collections.shuffle(auxiliar, new Random(seed));
-				for (int i = 0; i < auxiliar.size(); i++)
-					nodosSecuencia.add(auxiliar.get(i));
-				auxiliar.clear();
-				gradoMenor++;
-			}
+			final long seed = System.nanoTime();
+			Collections.shuffle(auxiliar, new Random(seed));
+			nodosSecuencia.addAll(auxiliar);
+			auxiliar.clear();
+			gradoMenor++;
 		}
 	}
 
 	public void matula() {
-		ArrayList<Integer> color = new ArrayList<Integer>();
-		ArrayList<Integer> auxiliar = new ArrayList<Integer>();
-
 		generarVectorMatulaAleatorio();
-		color.add(1);
-		nodosColoreados[nodosSecuencia.get(0)] = color.get(0);
-		for (int i = 1; i < nodosSecuencia.size(); i++) {
-			for (int j = 0; j < matriz.getCantNodos(); j++) {
-				if (j != nodosSecuencia.get(i) && matriz.getValor(j, nodosSecuencia.get(i)) == true) {
-					if (nodosColoreados[j] != 0 && !auxiliar.contains(nodosColoreados[j]))
-						auxiliar.add(nodosColoreados[j]);
-				}
-			}
-			if (auxiliar.isEmpty())
-				nodosColoreados[nodosSecuencia.get(i)] = color.get(0);
-			else {
-				nodosColoreados[nodosSecuencia.get(i)] = colorAPoner(color, auxiliar);
-				if (nodosColoreados[nodosSecuencia.get(i)] == color.size() + 1)
-					color.add(color.size() + 1);
-				auxiliar.clear();
-			}
-		}
-		cantColores = color.size();
+		algoritmoDeColoreo();
 	}
 
 	private void setCantidadColores() {
