@@ -1,0 +1,83 @@
+package grafos;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class Floyd {
+	
+	public static final int INFINITO = 10000000;
+	private int cantNodos;
+	private int cantAristas;
+	private int[][] matAd;
+	private int[][] matrizResultado;
+		
+		public Floyd(String ruta) throws FileNotFoundException{
+				Scanner scan = new Scanner(new File(ruta));
+				this.cantNodos = scan.nextInt();    // Cantidad de Nodos
+				this.cantAristas = scan.nextInt();  // Cantidad de Aristas
+				
+				this.matAd = new int [this.cantNodos][this.cantNodos];
+				
+				/*INICIALIZO*/
+				for (int i = 0; i < this.cantNodos; i++) {
+					for (int j = 0; j < this.cantNodos; j++) {
+						this.matAd[i][j]=INFINITO;
+//						System.out.print(this.matAd[i][j]+"\t");
+					}
+//					System.out.println("\n");
+				}
+				/*FIN INICIALIZAR*/
+				
+				/*CARGO MATRIZ ADYACENCIA*/
+				for (int i = 0; i < this.cantAristas; i++) {
+						this.matAd[scan.nextInt()-1][scan.nextInt()-1] = scan.nextInt();
+				}
+				/*FIN CARGA*/
+//				for (int i = 0; i < this.cantNodos; i++) {
+//					for (int j = 0; j < this.cantNodos; j++) {
+//						System.out.print(this.matAd[i][j]+"\t");
+//					}
+//					System.out.println("\n");
+//				}
+				
+
+	}
+		
+		/** Calcula los costos (Ponderacion) minimos entre cualquier par de nodos. Aplica a grafos ponderados. O(N^3)
+		 * @param matrizAdyacencia Diagonal principal  de 0 y vacios con INFINITO*/
+		public void resolver()
+		{
+			matrizResultado = this.matAd.clone();
+			for(int k = 0; k < matrizResultado.length; k++)
+			{
+				
+				for(int i = 0; i < matrizResultado.length; i++)
+				{
+					if(k==i){
+					matrizResultado[k][k]=0;
+				}
+					for(int j = 0; j < matrizResultado.length; j++)
+					{
+						if(k != i && k != j && i != j && matrizResultado[i][j] > (matrizResultado[i][k] + matrizResultado[k][j]))	//todos los indices distintos para que no sea una arista de un nodo consigo mismo
+							matrizResultado[i][j] = (matrizResultado[i][k] + matrizResultado[k][j]);								//si es mas barato ir por otras aristas que directo, reemplazo el costo de hacer esto
+					}					
+				}
+			}
+
+			for (int i = 0; i < matAd.length; i++) {
+				for (int j = 0; j < matAd.length; j++) {
+					
+					System.out.print(matrizResultado[i][j]+"\t");
+					
+				}
+				System.out.println("\n");
+			}
+		}
+		
+		public static void main(String[] args) throws FileNotFoundException {
+			Floyd f1 = new Floyd("C:/Users/matias/Desktop/a/grafos/floyd.txt");
+			f1.resolver();
+		}
+
+}

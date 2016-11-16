@@ -1,0 +1,164 @@
+package grafos;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.util.*;
+
+//.
+/** Calcula el camino menos costoso (Ponderacion) para recorrer todo el arbol y retorna el camino realizado 
+ * Prim trabaja con grafos no dirigidos, y conexos
+ * Cuando usar: Recorrer todos los nodos con el menor costo.
+ * O(N^2)*/
+public class Prim {
+	
+	public static final int INFINITO = Integer.MAX_VALUE;
+	private int cantNodos;
+	private int cantAristas;
+	private int[][] matAd;
+	private int costo=0; // costo del arbol abarcador mínimo.
+	
+	public Prim(String ruta){
+		
+		
+		File archivo = null;
+		FileReader fr = null;
+		BufferedReader br = null;
+		try {
+			archivo = new File(ruta);
+			fr = new FileReader(archivo);
+			br = new BufferedReader(fr);
+			
+			String linea;
+			String[] datos;
+			
+			linea=br.readLine();
+			datos=linea.split(" ");
+			this.cantNodos=Integer.parseInt(datos[0]);    // Cantidad de Nodos
+			this.cantAristas=Integer.parseInt(datos[1]);  // Cantidad de Aristas
+			
+			this.matAd = new int [this.cantNodos][this.cantNodos];
+			
+			/*INICIALIZO*/
+			for (int i = 0; i < this.cantNodos; i++) {
+				for (int j = 0; j < this.cantNodos; j++) {
+					this.matAd[i][j]=INFINITO;
+//					System.out.print(this.matAd[i][j]+"\t");
+				}
+//				System.out.println("\n");
+			}
+			/*FIN INICIALIZAR*/
+			
+			/*CARGO MATRIZ ADYACENCIA*/
+			for (int i = 0; i < this.cantAristas; i++) {
+					linea = br.readLine();
+					datos = linea.split(" ");
+//					System.out.println(linea);
+					this.matAd[Integer.parseInt(datos[0])-1][Integer.parseInt(datos[1])-1]=Integer.parseInt(datos[2]);
+					this.matAd[Integer.parseInt(datos[1])-1][Integer.parseInt(datos[0])-1]=Integer.parseInt(datos[2]);
+			}
+			/*FIN CARGA*/
+//			for (int i = 0; i < this.cantNodos; i++) {
+//				for (int j = 0; j < this.cantNodos; j++) {
+//					System.out.print(this.matAd[i][j]+"\t");
+//				}
+//				System.out.println("\n");
+//			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally{
+			try {
+				if(null!=fr)
+					fr.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+	}
+	
+	public void resolver()
+	{	
+		List<Integer[]> aristas = new ArrayList<Integer[]>();
+		
+		//Paso 1:
+		//definimos todo para comenzar con Prim: Armamos el conjunto V y S.
+		List<Integer> conjuntoV = generarConjunto(this.matAd.length);  // escribimos en lista conjuntoV todos los nodos.
+		List<Integer> conjuntoS = new ArrayList<Integer>();
+		conjuntoS.add(0);
+		
+		//Paso 2: Buscar los nodos mas cercanos a los del conjunto S
+		Integer[] nodoCandidato;
+		Integer[] nodoMasCercano= new Integer[3];
+		
+		boolean flag=true;
+		
+		//Mientras que el conjunto V no sea vacio, se comparan los nodos del conjunto S con los del conjunto V
+		while(!conjuntoV.isEmpty()){
+			for (int i = 0; i < conjuntoS.size(); i++) {	
+				//Se buscará el nodo mas cercano al nodo conjuntoS.get(i)	
+				nodoCandidato= buscarNodoMasCercano(conjuntoS.get(i),this.matAd,conjuntoV);
+				if(flag|| (nodoMasCercano[0]==null) || (nodoCandidato[0]!=null && nodoCandidato[2]<nodoMasCercano[2])){
+					flag=false;
+					nodoMasCercano=nodoCandidato;
+				}
+			}
+			this.costo+= nodoMasCercano[2];
+			conjuntoS.add(nodoMasCercano[1]);
+			conjuntoV.remove(nodoMasCercano[1]);
+			aristas.add(nodoMasCercano);
+			flag=true;
+		}
+		
+		//System.out.println("Muestro aristas:");
+
+//		for (int i = 0; i < aristas.size(); i++) {
+//			System.out.println(aristas.get(i));
+//		}
+		System.out.println("\n");
+		System.out.println("Costo:");
+		System.out.println(this.costo);
+		System.out.println("\n");
+		System.out.println("Muestro conjuntoS");
+
+		for (int i = 0; i < conjuntoS.size(); i++) {
+			System.out.println(conjuntoS.get(i)+1);
+		}
+		
+//		return conjuntoS;
+	}
+	
+
+	private Integer[] buscarNodoMasCercano(int pivote,int[][] matriz, List<Integer> conjuntoV) {
+		Integer[] nodo= new Integer[3];
+		boolean flag=true;
+		for (int j = 0; j < matriz.length; j++) {
+			
+			if(pivote!=j && (matriz[pivote][j] != 0) && conjuntoV.contains(j))
+			{
+							if(flag || matriz[pivote][j] < nodo[2])   //comparo los costos entre el nuevo nodo que iria y el pivot.
+							{
+								flag=false;
+								nodo[0]=pivote; //guardo desde el nodo donde me voy a mover.
+								nodo[1]=j;		//guardo la posicion a donde me quiero mover.
+								nodo[2] = matriz[pivote][j]; //guardo el costo de a donde me quiero mover.
+							}
+						}
+			}
+		return nodo;
+	}
+
+
+	private static List<Integer> generarConjunto(int cant) 
+	{
+		List<Integer> conjuntoV = new ArrayList<Integer>();
+		for (int i =1; i < cant; i++) 	
+			conjuntoV.add(i);
+		return conjuntoV;
+	}
+
+	public static void main(String[] args) {
+		Prim p = new Prim("C:/Users/matias/Desktop/a/grafos/prim.txt");
+		p.resolver();
+	}
+}

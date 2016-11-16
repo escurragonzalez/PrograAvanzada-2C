@@ -1,0 +1,87 @@
+package grafos;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class Warshall {
+	
+	private int[][] mat;
+	private int nodos;
+	private int aristas;
+	private int w;
+	
+	public Warshall(String ruta) throws FileNotFoundException{
+		
+		Scanner scan = new Scanner(new File(ruta));
+		this.nodos = scan.nextInt();
+		this.aristas = scan.nextInt();
+		
+		mat = new int[nodos][nodos];
+		
+		for(int i=0;i<nodos;i++)
+		{
+			for(int j=0;j<nodos;j++)
+			{
+				mat[i][j] = 0; // seria el infinito
+			}
+		}
+		
+		for(int i=0;i<aristas;i++)
+		{
+			
+			mat[scan.nextInt()-1][scan.nextInt()-1] = 1; // cargo matriz
+		}
+		
+   }
+	
+	public void resolver()
+	{
+		for(int w=0;w<nodos-1;w++)
+		{
+			for(int i=0;i<nodos;i++)
+			{
+				for(int j=0;j<nodos;j++)
+				{
+					if(mat[i][j]==0 && i!=j)
+					{
+						if(mat[i][w]==1 && mat[w][j]==1)
+							mat[i][j]=1;
+					}
+				}
+			}
+		}
+	}
+
+
+
+public static void main(String arg[]) throws FileNotFoundException
+{
+	Warshall caso = new Warshall("C:/Users/matias/Desktop/a/grafos/warshall.txt");
+	
+	for(int i=0;i<caso.nodos;i++)
+	{
+		for(int j=0;j<caso.nodos;j++)
+		{
+			System.out.print(caso.mat[i][j]);
+			System.out.print(" ");
+		}
+		System.out.println();			
+	}
+	
+	
+	System.out.println();
+	caso.resolver();
+	for(int i=0;i<caso.nodos;i++)
+	{
+		for(int j=0;j<caso.nodos;j++)
+		{
+			System.out.print(caso.mat[i][j]);
+			System.out.print(" ");
+		}
+		System.out.println();
+		
+	}
+}
+
+}

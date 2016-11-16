@@ -1,0 +1,63 @@
+import java.util.ArrayList;
+
+public class Prim {
+
+	public static void resolver(int[][] matrizUniones) {
+		ArrayList<Integer>visitados = new ArrayList<>();
+		ArrayList<Integer>sinVisitar = new ArrayList<>();
+		visitados.add(1);
+		for(int i=2;i<=15;i++)
+			sinVisitar.add(i);
+		
+		int matriz[][]= new int [15][15];
+		
+		for(int i=0;i<matrizUniones.length;i++){
+			for(int j=0;j<=3;j++){
+					matriz[matrizUniones[i][1]][matrizUniones[i][2]]=matriz[matrizUniones[i][2]][matrizUniones[i][1]]=matrizUniones[i][3];
+				
+			}
+				
+		}
+		
+		/*for(int i=0;i<=14;i++){
+			for(int j=0;j<=14;j++){
+				if(matriz[i][j]==0){
+					System.out.print("-- ");
+				}
+				else{
+					if(matriz[i][j]<10)
+						System.out.print("0"+matriz[i][j]+" ");
+					else
+						System.out.print(matriz[i][j]+" ");
+				}
+			}
+			System.out.println("");
+				
+		}*/
+		while(sinVisitar.size()>0){
+			int menor=10000;
+			int filMenor=0;
+			int colMenor=0;
+			for(int i=0;i<visitados.size();i++){
+				int fila=visitados.get(i);
+					for(int columna=1;columna<=14;columna++){
+						if(matriz[fila][columna]!=0 && visitados.contains(columna)==false ){
+							if(matriz[fila][columna]<menor){
+								menor=matriz[fila][columna];
+								filMenor=fila;
+								colMenor=columna;
+							}
+						}
+						
+					}				
+			}
+			visitados.add(colMenor);//AÑADO EL ELEMENTO VISITADO A visitados
+			sinVisitar.remove(sinVisitar.indexOf(colMenor)+1);//ELIMINO EL ELEMENTO VISITADO DE sinVisitar
+			matriz[filMenor][colMenor]=matriz[colMenor][filMenor]=0;
+			System.out.println(filMenor+"-"+colMenor);
+			
+		}
+		
+	}
+
+}

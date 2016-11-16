@@ -1,0 +1,142 @@
+package grafos;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Dijkstra {
+
+	public static final int INFINITO = 10000000;
+	private int cantNodos;
+	private int cantAristas;
+	private int[][] matAd;
+	private int nod_ini;
+	private int nodosVisitados[];
+	private int vecCostosMinimos[];
+	private int predecesores[];
+	
+	public Dijkstra(String ruta) throws FileNotFoundException{
+
+	
+			
+			Scanner scan = new Scanner(new File(ruta));
+			
+			this.cantNodos = scan.nextInt();
+			this.cantAristas = scan.nextInt();
+
+			this.nod_ini=0;   //Inicializamos nodo inicial, suponemos que es el primero
+			
+			this.matAd = new int [this.cantNodos][this.cantNodos];
+			
+			this.nodosVisitados = new int[this.matAd[this.nod_ini].length];
+			this.vecCostosMinimos = new int[this.matAd[this.nod_ini].length];
+			this.predecesores = new int[this.matAd[this.nod_ini].length];
+			
+			/*INICIALIZO*/
+			for (int i = 0; i < this.cantNodos; i++) {
+				for (int j = 0; j < this.cantNodos; j++) {
+					this.matAd[i][j]=INFINITO;
+//					System.out.print(this.matAd[i][j]+"\t");
+				}
+//				System.out.println("\n");
+			}
+			for (int i = 0; i < this.cantNodos; i++) {
+				this.nodosVisitados[i]=0;
+//				this.sol[i]=0;
+			}
+			/*FIN INICIALIZAR*/
+			
+			/*CARGO MATRIZ ADYACENCIA*/
+			for (int i = 0; i < this.cantAristas; i++) {
+					
+					this.matAd[scan.nextInt()-1][scan.nextInt()-1] = scan.nextInt();
+					
+			}
+			/*FIN CARGA*/
+			for (int i = 0; i < this.cantNodos; i++) {
+				for (int j = 0; j < this.cantNodos; j++) {
+					System.out.print(this.matAd[i][j]+"\t");
+				}
+				System.out.println("\n");
+			}
+			
+
+	}
+	
+	
+	/** Calcula el camino menos costoso (Ponderacion) desde un nodo inicial hacia el resto de los nodos. 
+	 * Grafos ponderados. O(N^2)
+	 * //RECORRIDO: Variante para saber el recorrido. Contiene el orden en el que fue viajando de nodo en nodo .No incluye el nodo inicial. Se debera recorrer la lista hasta el nodo de fin deseado.
+	 * Cuando usar: Cunado recorrido de costo minimo.
+	 * @param matrizAdyacencia Completar vacios con NO_ARISTA. Rango [0-n]
+	 * @return Vector de costos*/
+	public void resolver(){
+		
+		int j = 0;
+		int w = 0;
+//		int vistos[] = new int[this.matAd[this.nod_ini].length];
+//		int sol[] = new int[this.matAd[this.nod_ini].length];
+		int menorcosto;
+		ArrayList<Integer> recorrido = new ArrayList<>();	//RECORRIDO
+		
+		// vecCostosMinimos va a tener la fila de los costos del nodo origen a todos los demas.
+		vecCostosMinimos = this.matAd[nod_ini]; // nod_ini es el nodo al que quiero sacar las distancia a todos - tomo solo la fila del nod_ini
+		for(int i = 0; i < nodosVisitados.length ; i++)
+			nodosVisitados[i] = 0;
+		
+		for (int i = 0; i < this.predecesores.length; i++)
+			this.predecesores[i] = 0;
+		
+		nodosVisitados[nod_ini] = 1;   //ponemos en 1 el primer nodo por donde partimos.
+		int flag = 1;
+		while(flag == 1){
+			flag = 0;
+			menorcosto = INFINITO;
+			for(int i = 0; i < nodosVisitados.length; i++){ // recorro el vector vecCostosMinimos[] hasta encontrar el menor costo de los no vistos
+				if(nodosVisitados[i] != 1 && vecCostosMinimos[i] < menorcosto){
+				   w = i;
+				   menorcosto = vecCostosMinimos[i];	
+				   flag = 1;
+			 	}
+			}
+			nodosVisitados[w] = 1; 		// visite al de menor costo - y clava el visto
+			recorrido.add(w);	//RECORRIDO
+			
+			j = 0;
+			while( j < nodosVisitados.length && flag == 1){
+				if(nodosVisitados[j] == 0 && vecCostosMinimos[j] > ( vecCostosMinimos[w] + this.matAd[w][j]))//si no fue visto y el costo de acceder directamente es mayor que ir por varias aristas
+				{	
+					vecCostosMinimos[j] = (vecCostosMinimos[w] + this.matAd[w][j]);//reemplaza el costo de ir a ese nodo por la suma de los costos por acceder por distintas aristas
+					this.predecesores[j] = w;
+				}
+				j++;	
+			}
+		}
+		
+		
+//		recorrido.remove(recorrido.size()-1);	//RECORRIDO
+//		for (int i = 0; i < recorrido.size(); i++) {
+//			System.out.println(recorrido.get(i));
+//		}
+//		
+		//System.out.println();
+		
+		for (int i = 0; i < vecCostosMinimos.length; i++) {
+			System.out.println(vecCostosMinimos[i]);
+		}
+		
+		System.out.println();
+		
+		for (int i = 0; i < this.predecesores.length; i++) {
+			if (this.nod_ini != i)
+				System.out.println(this.predecesores[i]+1);
+		}
+		
+	}
+
+
+	public static void main(String[] args) throws FileNotFoundException {
+		Dijkstra d1 = new Dijkstra ("C:/Users/matias/Desktop/a/grafos/dijkstra.txt");
+		d1.resolver();
+	}
+}

@@ -1,0 +1,68 @@
+
+public class Floyd {
+
+	public static void resolver(int[][] matrizUniones) {
+double matriz[][]= new double [15][15];
+int recorrido[][]= new int [15][15];
+double infinito = Double.POSITIVE_INFINITY;
+
+/*for(int i=0;i<=14;i++)
+	for(int j=0;j<=14;j++)
+		matriz[i][j]=infinito;
+		
+		for(int i=0;i<matrizUniones.length;i++){
+			for(int j=0;j<=3;j++){
+					matriz[matrizUniones[i][1]][matrizUniones[i][2]]=matrizUniones[i][3];
+				
+			}				
+		}
+		
+		for(int i=0;i<=14;i++)
+			matriz[i][i]=0;
+		
+		for(int i=1;i<=14;i++){
+			for(int fila=1;fila<=14;fila++){
+				for(int columna=1;columna<=14;columna++){
+					if(matriz[fila][columna]>0){
+						if( matriz[fila][columna]>(matriz[i][columna]+ matriz[fila][i])){
+							matriz[fila][columna]=(matriz[i][columna]+ matriz[fila][i]);
+						}
+					}	
+				}
+			}
+		}
+
+		for(int i=1;i<=14;i++){
+			for(int j=1;j<=14;j++){
+				System.out.print(matriz[i][j]+" ");
+			}
+			System.out.println("");
+				
+		}*/
+		double mat[][]=new double[4][4];
+		mat[2][3]=mat[3][1]=infinito;
+		mat[1][2]=8;
+		mat[1][3]=5;
+		mat[2][1]=3;
+		mat[3][2]=2;
+		
+		for(int i=1;i<=3;i++){
+			for(int fila=1;fila<=3;fila++){
+				for(int columna=1;columna<=3;columna++){
+					if(mat[fila][columna]>0){
+						if(mat[fila][columna]>(mat[fila][i]+mat[i][columna]))
+							mat[fila][columna]=(mat[fila][i]+mat[i][columna]);
+					}
+				}
+			}
+		}
+		
+		for(int i=1;i<=3;i++){
+			for(int j=1;j<=3;j++)
+				System.out.print(mat[i][j]+"  ");
+			System.out.println("");
+		}
+		
+	}
+
+}

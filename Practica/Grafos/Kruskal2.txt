@@ -1,0 +1,49 @@
+
+public class Kruskal {
+
+	public static void resolver(int[][] matriz) {
+		int vec[]=new int [15];
+		for(int i=0;i<15;i++)
+			vec[i]=i;
+		
+		/*System.out.println(matriz.length);
+		for(int i=0;i<matriz.length;i++){
+			for(int j=0;j<=3;j++){
+				if(matriz[i][j]<10)
+					System.out.print("0"+matriz[i][j]+" ");
+				else
+					System.out.print(matriz[i][j]+" ");
+			}
+			System.out.println("");
+		}*/
+		
+		
+		for(int i=1;i<15;i++){
+			int valor1=valor(matriz[i][1],vec);
+			int valor2=valor(matriz[i][2],vec);
+			if(valor1<valor2){//SI EL PRIMER NUMERO ES MAS CHICO QUE EL SEGUNDO
+				//vec[matriz[i][2]]=valor1;
+				vec[valor2]=valor1;
+				System.out.println(matriz[i][1]+"-"+matriz[i][2]);
+			}
+			else if(valor1>valor2){
+				//vec[matriz[i][1]]=valor2;
+				vec[valor1]=valor2;
+				System.out.println(matriz[i][1]+"-"+matriz[i][2]);
+			}
+			
+		}
+		
+		for(int i=0;i<15;i++)
+			System.out.print(vec[i]+" ");
+	}
+
+	private static int valor(int i, int[] vec) {
+		if(i==vec[i])
+			return i;
+		else
+			return valor(vec[i],vec);
+		
+	}
+
+}

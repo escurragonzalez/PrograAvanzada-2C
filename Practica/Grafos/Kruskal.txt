@@ -1,0 +1,109 @@
+package grafos;
+
+import java.util.*;
+import java.io.*;
+
+public class Kruskal {
+	
+		private List<Nodo> lista;
+		private List<Nodo> arbolAbarcadorCostoMin;
+		private int nodos;
+		private int aristas;
+		private int costoFinal;
+		private static int vectorPadre[];
+
+		public class Nodo {
+			private int costo;
+			private int origen;
+			private int destino;
+
+		public Nodo(int orig, int dest, int costo) {
+			origen = orig;
+			destino = dest;
+			this.costo = costo;
+			}
+		}
+
+		public Kruskal(String ruta) throws FileNotFoundException {
+
+				Scanner scan = new Scanner(new File(ruta));
+
+				this.nodos = scan.nextInt();
+				this.aristas = scan.nextInt();
+
+				arbolAbarcadorCostoMin = new ArrayList<Nodo>(); // guardo las aristas finales
+
+				lista = new ArrayList<Nodo>(); // guardo todas las aristas de la entrada, para luego ordenar
+
+				this.vectorPadre = new int[this.nodos + 1];
+
+				this.costoFinal = 0;
+
+				// inicializo vectorPadre
+				for (int j = 1; j <= this.nodos; ++j) {
+					vectorPadre[j] = j;
+				}
+
+				for (int i = 0; i < aristas; i++) {
+					
+					lista.add(new Nodo(scan.nextInt(), scan.nextInt(), scan.nextInt()));
+					//lista.add(new Nodo(scan.nextInt(), scan.nextInt(), scan.nextInt()));
+				}
+
+
+		}
+
+		public void ordenar() // ordena en grado ascendente
+		{
+			Collections.sort(lista, new Comparator<Nodo>() {
+				@Override
+				public int compare(Nodo nodo1, Nodo nodo2) {
+					return nodo1.costo - nodo2.costo;
+				}
+			});
+		}
+
+		public void procesar() {
+			ordenar(); // orderna los nodos en forma ascendente por costo.
+			Iterator it = lista.iterator();
+			while (it.hasNext() && this.arbolAbarcadorCostoMin.size() != this.nodos - 1) {
+				Nodo aux = (Nodo) it.next();
+				if (find(aux.origen - 1) != find(aux.destino - 1)) {
+					arbolAbarcadorCostoMin.add(aux); // nodos del arbol abarcador de costos minimo
+					this.costoFinal += aux.costo;
+					union(aux.origen - 1, aux.destino - 1);
+				}
+				if (this.arbolAbarcadorCostoMin.size() == this.nodos - 1) {
+//					return true;
+					break;
+				}
+			}
+		}
+
+		public static void union(int x, int y) {
+			vectorPadre[find(x)] = find(y);
+		}
+
+		public static int find(int x) {
+			// return x==vectorPadre[x] ? x : find(vectorPadre[x]);
+			return (x == vectorPadre[x]) ? x : (vectorPadre[x] = find(vectorPadre[x]));
+		}
+
+		public static void main(String args[]) throws FileNotFoundException {
+			Kruskal k1 = new Kruskal("C:/Users/matias/Desktop/a/grafos/kruskal4.txt");
+			k1.procesar();
+			Iterator it = k1.arbolAbarcadorCostoMin.iterator();
+			while (it.hasNext()) {
+				Nodo o = (Nodo) it.next();
+				System.out.println(o.origen + "-" + o.destino + "-" + o.costo);
+			}
+
+//			for (int i = 0; i < vectorPadre.length; i++) {
+//				System.out.print(vectorPadre[i] + " ");
+//			}
+			System.out.println("Costo Final:");
+			System.out.println(k1.costoFinal);
+		}
+	}
+
+
