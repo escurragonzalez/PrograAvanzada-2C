@@ -1,0 +1,24 @@
+-BFS:
+Busqueda en anchura-Cola O(N+M)
+Recorrer todos los nodos,detectar ciclos.
+Encontrar cantidad de grupos, cantdad de reinicios
+-DFS
+Busqueda en profundidad Pila O(N+M)
+Contar componentes, arbol recorrido
+Encontrar cantidad de grupos, cantdad de reinicios
+-Dijkstra
+Camino mas corto de 1 a N - O(pow(N,2))
+Grafos ponderados
+Sin cola de prioridad: Antecesores
+Con cola de prioridad O(N log (N))
+-Floyd:
+O(pow(n,3))
+Camino mas corto N a N
+-Warshall
+O(pow(n,3))
+(Logico) Existencia de camino
+-Prim
+O(pow(n,2)) Por nodo
+Genera arbol de recorridocompleto costo mínimo
+-Kruskal
+O(pow(n,2)) Por arista
