@@ -94,7 +94,7 @@ public class AnalisisEstadistico {
 		generador.escribirArchivo("coloreo.out");
 		GrafoNDNP coloreo = new GrafoNDNP("coloreo.out");
 
-		for (int i = 0; i < 500; i++) {
+		for (int i = 0; i < 10000; i++) {
 
 			coloreo.SecuenciaAleatorio();
 			System.out.println(coloreo.getCantColores());

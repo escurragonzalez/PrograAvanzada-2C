@@ -73,7 +73,7 @@ public class GrafoNDNP {
 		for (int i = 1; i < nodosSecuencia.size(); i++) {
 			for (int j = 0; j < matriz.getCantNodos(); j++) {
 				if (j != nodosSecuencia.get(i) && matriz.getValor(j, nodosSecuencia.get(i)) == true) {
-					if (nodosColoreados[j] != 0 && !auxiliar.contains(nodosColoreados[j]))
+					if (nodosColoreados[j] != 0)
 						auxiliar.add(nodosColoreados[j]);
 				}
 			}

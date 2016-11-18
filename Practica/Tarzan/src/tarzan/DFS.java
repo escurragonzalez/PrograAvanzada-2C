@@ -6,7 +6,6 @@ public class DFS {
 
 	private int[][] matAdyacencia;
 	private ArrayList<Integer> precedentes;
-	private int salto;
 	private boolean superSalto;
 	private int nodos;
 
@@ -14,7 +13,6 @@ public class DFS {
 		this.nodos = nodos;
 		matAdyacencia = new int[nodos][nodos];
 		precedentes = new ArrayList<Integer>();
-		salto = 0;
 		superSalto = false;
 	}
 
@@ -34,14 +32,6 @@ public class DFS {
 		this.precedentes = precedentes;
 	}
 
-	public int getSalto() {
-		return salto;
-	}
-
-	public void setSalto(int salto) {
-		this.salto = salto;
-	}
-
 	public boolean isSuperSalto() {
 		return superSalto;
 	}
@@ -52,29 +42,61 @@ public class DFS {
 
 	public void resolver(int origen, int destino) {
 		ArrayList<Integer> auxPrecedente = new ArrayList<Integer>();
+		int indice = 1, salto = 0;
 		auxPrecedente.add(origen);
 		int menor = Integer.MAX_VALUE;
 		while (!auxPrecedente.isEmpty()) {
-			for (int i = 0; i < this.nodos; i++) {
-				if (matAdyacencia[auxPrecedente.get(i)][i] != 0) {
-					auxPrecedente.add(i);
-					salto++;
-					if (matAdyacencia[auxPrecedente.get(i)][i] == 2 && !superSalto) {
-						superSalto = true;
-					} else {
-						auxPrecedente.remove(i);
-						salto--;
+			for (int i = indice; i < this.nodos; i++) {
+				if (matAdyacencia[auxPrecedente.get(auxPrecedente.size() - 1)][i] != 0) {
+					if (matAdyacencia[auxPrecedente.get(auxPrecedente.size() - 1)][i] == 1) {
+						auxPrecedente.add(i);
+						salto++;
 					}
-					if (i == destino) {
-						if (menor < salto) {
+					if (matAdyacencia[auxPrecedente.get(auxPrecedente.size() - 1)][i] == 2) {
+						if (!superSalto) {
+							superSalto = true;
+							auxPrecedente.add(i);
+							salto++;
+						}
+					}
+					if (auxPrecedente.get(auxPrecedente.size() - 1) == destino) {
+						if (menor >= salto) {
 							menor = salto;
 							this.precedentes = new ArrayList<Integer>(auxPrecedente);
-							auxPrecedente.remove(i);
+							if (matAdyacencia[auxPrecedente.get(auxPrecedente.size() - 2)][auxPrecedente
+									.get(auxPrecedente.size() - 1)] == 2)
+								superSalto = false;
+							indice = auxPrecedente.get(auxPrecedente.size() - 1) + 1;
+							auxPrecedente.remove(auxPrecedente.size() - 1);
 							salto--;
 						}
 					}
 				}
+
 			}
+
+			if (auxPrecedente.size()>=2 && matAdyacencia[auxPrecedente.get(auxPrecedente.size() - 2)][auxPrecedente
+					.get(auxPrecedente.size() - 1)] == 2)
+				superSalto = false;
+			indice = auxPrecedente.get(auxPrecedente.size() - 1) + 1;
+			auxPrecedente.remove(auxPrecedente.size() - 1);
+			salto--;
+		}
+
+	}
+
+	public void mostrarPrecedente() {
+		for (int i = 0; i < precedentes.size(); i++) {
+			System.out.println(precedentes.get(i));
+		}
+	}
+
+	public void mostrarMatriz() {
+		for (int i = 0; i < matAdyacencia.length; i++) {
+			for (int j = 0; j < matAdyacencia.length; j++) {
+				System.out.print(" " + matAdyacencia[i][j]);
+			}
+			System.out.println();
 		}
 	}
 }

@@ -2,6 +2,9 @@ package tarzan;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -44,9 +47,44 @@ public class Tarzan {
 			}
 		}
 		//Fin de la carga
+		dfs.mostrarMatriz();
 		
 		dfs.resolver(arboles.get(0).getOrden(),arboles.get(nodos-1).getOrden());
 		
+	}
+	
+	public void grabraSolucion(String archivo) throws IOException{
+		FileWriter fw = new FileWriter(archivo);
+		PrintWriter pw = new PrintWriter(fw);
+		for (int i = 0; i < this.getDfs().getPrecedentes().size(); i++) {
+			pw.print(" "+arboles.get(this.getDfs().getPrecedentes().get(i)).getX());
+			pw.println(" "+arboles.get(this.getDfs().getPrecedentes().get(i)).getY());
+		}
+		pw.close();
+	}
+
+	public int getNodos() {
+		return nodos;
+	}
+
+	public void setNodos(int nodos) {
+		this.nodos = nodos;
+	}
+
+	public ArrayList<Arbol> getArboles() {
+		return arboles;
+	}
+
+	public void setArboles(ArrayList<Arbol> arboles) {
+		this.arboles = arboles;
+	}
+
+	public DFS getDfs() {
+		return dfs;
+	}
+
+	public void setDfs(DFS dfs) {
+		this.dfs = dfs;
 	}
 	
 	
